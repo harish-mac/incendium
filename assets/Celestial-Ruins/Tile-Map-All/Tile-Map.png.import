@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d24jgj08hircw"
-path="res://.godot/imported/goblin_scout_v5_weapons_dagger_1_silhouette.png-3c684a79709a7749eee56854eaafceee.ctex"
+uid="uid://d4crr2v6wmdds"
+path="res://.godot/imported/Tile-Map.png-3849cec837f8f360aa2998a730010d52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/goblin_scout_v5_weapons_dagger_1_silhouette.png"
-dest_files=["res://.godot/imported/goblin_scout_v5_weapons_dagger_1_silhouette.png-3c684a79709a7749eee56854eaafceee.ctex"]
+source_file="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png"
+dest_files=["res://.godot/imported/Tile-Map.png-3849cec837f8f360aa2998a730010d52.ctex"]
 
 [params]
 

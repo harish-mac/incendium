@@ -1,9 +1,18 @@
 extends CharacterBody2D
 
-
 const SPEED = 130.0
+const DASH_SPEED_MULTIPLIER = 3.0
 const JUMP_VELOCITY = -300.0
 
+const DASH_DURATION = 0.25 
+const DASH_COOLDOWN = 1.0  
+
+var dash_time_left := 0.0
+var dash_cooldown_left := 0.0
+var is_dashing := false
+var dash_direction := 1.0 
+
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -11,15 +20,51 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
+		
+	# Manage Dash Timers
+	if dash_time_left > 0:
+		dash_time_left -= delta
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		is_dashing = false
+		
+	if dash_cooldown_left > 0:
+		dash_cooldown_left -= delta
+
+	# Get standard input direction
+	var direction := Input.get_axis("move_left", "move_right")
+	
+	# Trigger dash
+	if Input.is_action_just_pressed("dash") and dash_cooldown_left <= 0:
+		is_dashing = true
+		dash_time_left = DASH_DURATION
+		dash_cooldown_left = DASH_COOLDOWN
+		dash_direction = -1.0 if animated_sprite.flip_h else 1.0
+		
+	# Flip sprite visually 
+	if direction > 0 and not is_dashing:
+		animated_sprite.flip_h = false
+	elif direction < 0 and not is_dashing:
+		animated_sprite.flip_h = true
+		
+	# Apply movement and animations
+	if is_dashing:
+		velocity.x = dash_direction * SPEED * DASH_SPEED_MULTIPLIER
+		animated_sprite.play("dash")
+	else:
+		# Handle normal movement physics
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			
+		# Handle normal animations
+		if not is_on_floor():
+			animated_sprite.play("hop")
+		elif direction != 0:
+			animated_sprite.play("run") # Change to match your run animation
+		else:
+			animated_sprite.play("idle_bop")
 
 	move_and_slide()

@@ -1,0 +1,21 @@
+License
+
+Copyright (c) 2026 Eldrune
+
+You are allowed to
+
+-   Use these assets in personal projects.
+-   Use these assets in commercial projects.
+-   Modify the assets for your own game.
+
+You are NOT allowed to
+
+-   Resell the original assets.
+-   Redistribute the original files.
+-   Upload this asset pack to another website.
+-   Claim the original artwork as your own.
+
+The assets may only be distributed as part of a finished game or
+application.
+
+Thank you for respecting the license.
