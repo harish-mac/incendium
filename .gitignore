@@ -1,0 +1,13 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Godot 3 specific ignores (just in case)
+.import/
+
+# General Godot ignores
+export_presets.cfg
+*.translation
+*.tmp
+
+# OS specific ignores
+.DS_Store
