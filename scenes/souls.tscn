@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://ch8bmbvu6k2x3"]
+
+[ext_resource type="Texture2D" uid="uid://cncmgrjy6kxen" path="res://assets/Water Effect and Bullet 16x16.png" id="1_vm3nt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm3nt"]
+atlas = ExtResource("1_vm3nt")
+region = Rect2(160, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr3sf"]
+atlas = ExtResource("1_vm3nt")
+region = Rect2(176, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lntkb"]
+atlas = ExtResource("1_vm3nt")
+region = Rect2(192, 160, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tykhb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vm3nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vr3sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lntkb")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="souls" type="Node2D" unique_id=1891883727]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1152789921]
+sprite_frames = SubResource("SpriteFrames_tykhb")
+frame_progress = 0.34912673
