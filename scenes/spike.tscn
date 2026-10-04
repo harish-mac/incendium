@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c0ffnei68v72k" path="res://scenes/killzone.tscn" id="2_d2mqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0ofg"]
-size = Vector2(41, 53.5)
+size = Vector2(44, 57)
 
 [node name="spike" type="Node2D" unique_id=1256125073]
 
@@ -14,5 +14,5 @@ texture = ExtResource("1_7a7y0")
 [node name="Area2D" parent="." unique_id=1770200705 instance=ExtResource("2_d2mqm")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=848437385]
-position = Vector2(1.5, 4.25)
+position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_r0ofg")

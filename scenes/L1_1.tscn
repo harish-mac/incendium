@@ -382,6 +382,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_l1op4")
 sources/1 = SubResource("TileSetAtlasSource_1wa6k")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fpahb"]
+size = Vector2(864, 32)
+
 [node name="TileMap" type="TileMap" unique_id=966500]
 tile_set = SubResource("TileSet_fpahb")
 format = 2
@@ -393,3 +396,9 @@ position = Vector2(0, -2)
 [node name="Camera2D" type="Camera2D" parent="Protag" unique_id=1827472738]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[node name="floorKillZone" type="Area2D" parent="." unique_id=1618247755]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floorKillZone" unique_id=2043790345]
+position = Vector2(496, 240)
+shape = SubResource("RectangleShape2D_fpahb")

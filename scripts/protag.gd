@@ -4,10 +4,10 @@ const SPEED = 130.0
 const DASH_SPEED_MULTIPLIER = 2.5
 const JUMP_VELOCITY = -360.0
 const WALL_JUMP_PUSHBACK = 100.0 
-const WALL_SLIDE_SPEED = 100.0 # NEW: The maximum falling speed when hugging a wall
+const WALL_SLIDE_SPEED = 100.0 
 
 const DASH_DURATION = 0.25 
-const DASH_COOLDOWN = 1.0  
+const DASH_COOLDOWN = 0.7  
 const WALL_JUMP_LOCK_TIME = 0.25 
 
 var dash_time_left := 0.0
@@ -24,10 +24,12 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
 		
-		# NEW: Wall Slide Limit
-		# If touching a wall and falling downwards, clamp the speed
+		# Wall Slide Limit
 		if is_on_wall() and velocity.y > 0:
 			velocity.y = min(velocity.y, WALL_SLIDE_SPEED)
+
+	# MOVED: Get standard input direction early so the jump function can read it
+	var direction := Input.get_axis("move_left", "move_right")
 
 	# Handle Jump & Wall Jump
 	if Input.is_action_just_pressed("jump") and not is_dashing:
@@ -35,8 +37,18 @@ func _physics_process(delta: float) -> void:
 			velocity.y = JUMP_VELOCITY
 		elif is_on_wall():
 			velocity.y = JUMP_VELOCITY
-			velocity.x = get_wall_normal().x * WALL_JUMP_PUSHBACK
-			wall_jump_lock_left = WALL_JUMP_LOCK_TIME 
+			
+			# --- ZIG-ZAG LOGIC ---
+			# get_wall_normal().x always points AWAY from the wall.
+			# If you are holding the D-pad/key in that same direction, you want to leap across.
+			if direction == sign(get_wall_normal().x):
+				# Give a 50% stronger pushback to cross the gap, and cut the steering lock in half
+				velocity.x = get_wall_normal().x * (WALL_JUMP_PUSHBACK * 1.5)
+				wall_jump_lock_left = WALL_JUMP_LOCK_TIME * 0.5 
+			else:
+				# Standard vertical climb (holding towards the wall or neutral)
+				velocity.x = get_wall_normal().x * WALL_JUMP_PUSHBACK
+				wall_jump_lock_left = WALL_JUMP_LOCK_TIME 
 			
 	# Manage Timers
 	if dash_time_left > 0:
@@ -49,9 +61,6 @@ func _physics_process(delta: float) -> void:
 		
 	if wall_jump_lock_left > 0:
 		wall_jump_lock_left -= delta
-
-	# Get standard input direction
-	var direction := Input.get_axis("move_left", "move_right")
 	
 	# Trigger dash
 	if Input.is_action_just_pressed("dash") and dash_cooldown_left <= 0:
@@ -73,8 +82,10 @@ func _physics_process(delta: float) -> void:
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
 				
-		# Visual Sprite Flipping (Disabled during wall slide to prevent flickering)
-		if not is_on_wall() or is_on_floor():
+		# Visual Sprite Flipping
+		if wall_jump_lock_left > 0:
+			animated_sprite.flip_h = velocity.x < 0
+		elif not is_on_wall() or is_on_floor():
 			if direction > 0:
 				animated_sprite.flip_h = false
 			elif direction < 0:
@@ -84,7 +95,6 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			if is_on_wall() and velocity.y > 0:
 				animated_sprite.play("wall_slide")
-				# Automatically flip the sprite to correctly cling to the wall
 				animated_sprite.flip_h = get_wall_normal().x > 0
 			else:
 				animated_sprite.play("hop")
@@ -94,5 +104,3 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("idle_bop")
 
 	move_and_slide()
-	
-	
