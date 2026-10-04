@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 const SPEED = 130.0
-const DASH_SPEED_MULTIPLIER = 3.0
-const JUMP_VELOCITY = -300.0
+const DASH_SPEED_MULTIPLIER = 2.5
+const JUMP_VELOCITY = -360.0
 
 const DASH_DURATION = 0.25 
 const DASH_COOLDOWN = 1.0  
@@ -15,12 +15,12 @@ var dash_direction := 1.0
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
+	# Add the gravity (Modified: disabled while dashing)
+	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	# Handle jump (Modified: optional, prevents jumping mid-dash)
+	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_dashing:
 		velocity.y = JUMP_VELOCITY
 		
 	# Manage Dash Timers
@@ -51,6 +51,7 @@ func _physics_process(delta: float) -> void:
 	# Apply movement and animations
 	if is_dashing:
 		velocity.x = dash_direction * SPEED * DASH_SPEED_MULTIPLIER
+		velocity.y = 0 # Cancel out vertical velocity for a straight horizontal dash
 		animated_sprite.play("dash")
 	else:
 		# Handle normal movement physics
