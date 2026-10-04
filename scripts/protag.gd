@@ -3,12 +3,12 @@ extends CharacterBody2D
 const SPEED = 130.0
 const DASH_SPEED_MULTIPLIER = 2.5
 const JUMP_VELOCITY = -360.0
-const WALL_JUMP_PUSHBACK = 200.0 
+const WALL_JUMP_PUSHBACK = 100.0 
 const WALL_SLIDE_SPEED = 100.0 # NEW: The maximum falling speed when hugging a wall
 
 const DASH_DURATION = 0.25 
 const DASH_COOLDOWN = 1.0  
-const WALL_JUMP_LOCK_TIME = 0.15 
+const WALL_JUMP_LOCK_TIME = 0.25 
 
 var dash_time_left := 0.0
 var dash_cooldown_left := 0.0
@@ -94,3 +94,5 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("idle_bop")
 
 	move_and_slide()
+	
+	
