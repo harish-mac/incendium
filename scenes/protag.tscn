@@ -835,7 +835,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ij1mg")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"death",
 "speed": 10.0
 }, {
@@ -912,7 +912,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pfh2v")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"death_final",
 "speed": 14.0
 }, {
@@ -1257,9 +1257,8 @@ texture_filter = 1
 position = Vector2(-1, -23)
 scale = Vector2(1.546875, 1.9481112)
 sprite_frames = SubResource("SpriteFrames_p82b6")
-animation = &"wall_slide"
+animation = &"death"
 autoplay = "idle_bop"
-frame_progress = 0.6659943
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1924738436]
 z_as_relative = false
