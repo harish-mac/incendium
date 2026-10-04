@@ -37,14 +37,14 @@ script = ExtResource("1_vr3sf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1152789921]
 sprite_frames = SubResource("SpriteFrames_tykhb")
-frame_progress = 0.6358795
+frame_progress = 0.8723453
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=709833554]
 position = Vector2(17, 0)
 sprite_frames = SubResource("SpriteFrames_tykhb")
-frame_progress = 0.008653061
+frame_progress = 0.24508253
 
 [node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=1161823192]
 position = Vector2(34, 0)
 sprite_frames = SubResource("SpriteFrames_tykhb")
-frame_progress = 0.728733
+frame_progress = 0.965196
