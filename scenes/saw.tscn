@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://by40qboon7elj"]
+
+[ext_resource type="Texture2D" uid="uid://bsmereyf66rai" path="res://assets/Asset 293.png" id="1_kprxg"]
+[ext_resource type="PackedScene" uid="uid://c0ffnei68v72k" path="res://scenes/killzone.tscn" id="2_846d5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tykhb"]
+radius = 29.068884
+
+[node name="Saw" type="Node2D" unique_id=1791412340]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1810200905]
+texture = ExtResource("1_kprxg")
+
+[node name="Area2D" parent="." unique_id=1770200705 instance=ExtResource("2_846d5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1351410772]
+shape = SubResource("CircleShape2D_tykhb")
