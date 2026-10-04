@@ -17,9 +17,22 @@ var dash_direction := 1.0
 
 var wall_jump_lock_left := 0.0 
 
+var is_dead := false
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var fade: ColorRect = $"../UI/Fade"
+
+func _ready() -> void:
+	fade.color.a = 0.0
+	
+	if not Global.has_checkpoint:
+		Global.checkpoint_position = global_position
+		Global.has_checkpoint = true
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return
+		
 	# Add the gravity
 	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
@@ -104,3 +117,53 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("idle_bop")
 
 	move_and_slide()
+
+func respawn() -> void:
+	global_position = Global.checkpoint_position
+	velocity = Vector2.ZERO
+	animated_sprite.play("idle_bop")
+	
+	await get_tree().create_timer(0.15).timeout
+	
+	var tween := create_tween()
+	tween.tween_property(fade, "color:a", 0.0, 0.4)
+	await tween.finished
+	
+	is_dead = false
+
+func game_over() -> void:
+	print("GAME OVER")
+	Global.lives = 3
+	Global.has_checkpoint = false
+	get_tree().reload_current_scene()
+
+func die() -> void:
+	if is_dead:
+		return
+	
+	is_dead = true
+	Global.lives -= 1
+	
+	velocity = Vector2.ZERO
+	
+	print("Lives remaining: ", Global.lives)
+	
+	if Global.lives > 0:
+		animated_sprite.play("death")
+		await animated_sprite.animation_finished
+		
+		var tween := create_tween()
+		tween.tween_property(fade, "color:a", 1.0, 0.4)
+		await tween.finished
+		
+		await respawn()
+		
+	else:
+		animated_sprite.play("death_final")
+		await animated_sprite.animation_finished
+		
+		var tween := create_tween()
+		tween.tween_property(fade, "color:a", 1.0, 0.4)
+		await tween.finished
+		
+		game_over()
