@@ -35,4 +35,14 @@ animations = [{
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1152789921]
 sprite_frames = SubResource("SpriteFrames_tykhb")
-frame_progress = 0.34912673
+frame_progress = 0.9129564
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=709833554]
+position = Vector2(17, 0)
+sprite_frames = SubResource("SpriteFrames_tykhb")
+frame_progress = 0.28582552
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=1161823192]
+position = Vector2(34, 0)
+sprite_frames = SubResource("SpriteFrames_tykhb")
+frame_progress = 0.0058286353
