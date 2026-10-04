@@ -20,7 +20,7 @@ var wall_jump_lock_left := 0.0
 var is_dead := false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-var fade: ColorRect # No path attached, generated dynamically
+@onready var ui = get_tree().get_first_node_in_group("game_ui")
 
 func _ready() -> void:
 	# Universally generate the fade screen on top of everything
@@ -28,10 +28,6 @@ func _ready() -> void:
 	canvas.layer = 100 
 	add_child(canvas)
 	
-	fade = ColorRect.new()
-	fade.color = Color(0, 0, 0, 0) # Start as transparent black
-	fade.set_anchors_preset(Control.PRESET_FULL_RECT) # Stretch to screen size
-	canvas.add_child(fade)
 	
 	# Checkpoint logic
 	if not Global.has_checkpoint:
@@ -135,7 +131,7 @@ func respawn() -> void:
 	await get_tree().create_timer(0.15).timeout
 	
 	var tween := create_tween()
-	tween.tween_property(fade, "color:a", 0.0, 0.4)
+	tween.tween_property(ui.fade, "color:a", 1.0, 0.4)
 	await tween.finished
 	
 	is_dead = false
@@ -162,7 +158,7 @@ func die() -> void:
 		await animated_sprite.animation_finished
 		
 		var tween := create_tween()
-		tween.tween_property(fade, "color:a", 1.0, 0.4)
+		tween.tween_property(ui.fade, "color:a", 1.0, 0.4)
 		await tween.finished
 		
 		await respawn()
@@ -172,7 +168,7 @@ func die() -> void:
 		await animated_sprite.animation_finished
 		
 		var tween := create_tween()
-		tween.tween_property(fade, "color:a", 1.0, 0.4)
+		tween.tween_property(ui.fade, "color:a", 1.0, 0.4)
 		await tween.finished
 		
 		game_over()
