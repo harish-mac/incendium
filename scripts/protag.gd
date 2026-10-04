@@ -3,11 +3,8 @@ extends CharacterBody2D
 const SPEED = 130.0
 const DASH_SPEED_MULTIPLIER = 2.5
 const JUMP_VELOCITY = -360.0
-<<<<<<< HEAD
-=======
 const WALL_JUMP_PUSHBACK = 200.0 
 const WALL_SLIDE_SPEED = 100.0 # NEW: The maximum falling speed when hugging a wall
->>>>>>> 3d05bd0cfdf41b5530d8462dd8a5708465bc38aa
 
 const DASH_DURATION = 0.25 
 const DASH_COOLDOWN = 1.0  
@@ -23,19 +20,9 @@ var wall_jump_lock_left := 0.0
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
-<<<<<<< HEAD
-	# Add the gravity (Modified: disabled while dashing)
-	if not is_on_floor() and not is_dashing:
-		velocity += get_gravity() * delta
-
-	# Handle jump (Modified: optional, prevents jumping mid-dash)
-	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_dashing:
-		velocity.y = JUMP_VELOCITY
-=======
 	# Add the gravity
 	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
->>>>>>> 3d05bd0cfdf41b5530d8462dd8a5708465bc38aa
 		
 		# NEW: Wall Slide Limit
 		# If touching a wall and falling downwards, clamp the speed
@@ -76,12 +63,8 @@ func _physics_process(delta: float) -> void:
 	# Apply movement and animations
 	if is_dashing:
 		velocity.x = dash_direction * SPEED * DASH_SPEED_MULTIPLIER
-<<<<<<< HEAD
-		velocity.y = 0 # Cancel out vertical velocity for a straight horizontal dash
-=======
 		velocity.y = 0 
->>>>>>> 3d05bd0cfdf41b5530d8462dd8a5708465bc38aa
-		animated_sprite.play("dash")
+		animated_sprite.play("roll")
 	else:
 		# Standard horizontal steering (if not locked by wall jump)
 		if wall_jump_lock_left <= 0:
