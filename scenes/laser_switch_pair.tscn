@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dngygc3ud774e"]
+
+[ext_resource type="Script" uid="uid://uakfrujhrgr3" path="res://scripts/laser_switch_pair.gd" id="1_1wbwx"]
+[ext_resource type="PackedScene" uid="uid://dqc0ccyymmuah" path="res://scenes/laser.tscn" id="2_cu6xn"]
+[ext_resource type="PackedScene" uid="uid://crje6dd3wswk3" path="res://scenes/lever.tscn" id="3_tp6a4"]
+
+[node name="LaserSwitchPair" type="Node2D" unique_id=31792744]
+script = ExtResource("1_1wbwx")
+
+[node name="laser" parent="." unique_id=406509937 instance=ExtResource("2_cu6xn")]
+
+[node name="lever" parent="." unique_id=104441195 instance=ExtResource("3_tp6a4")]
+position = Vector2(184, 4)
