@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://bx63jfefpd8sb" path="res://scenes/spike.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b4sir3d645vbs" path="res://scenes/UI.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://dqc0ccyymmuah" path="res://scenes/laser.tscn" id="5_iywne"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -318,3 +319,7 @@ layer_0/tile_data = PackedInt32Array(65528, 393216, 9, 65529, 393216, 9, 65530, 
 position = Vector2(-261, -30)
 
 [node name="UI" parent="." unique_id=1469340165 instance=ExtResource("4_lbhrr")]
+
+[node name="laser" parent="." unique_id=406509937 instance=ExtResource("5_iywne")]
+position = Vector2(-102, -80)
+rotation = -1.5819955

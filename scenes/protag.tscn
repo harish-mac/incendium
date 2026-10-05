@@ -688,7 +688,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"attack_1",
-"speed": 5.0
+"speed": 11.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -720,7 +720,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"attack_2_slash",
-"speed": 9.0
+"speed": 11.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -749,7 +749,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"attack_3_sstab",
-"speed": 5.0
+"speed": 11.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -835,7 +835,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ij1mg")
 }],
-"loop": 0,
+"loop": 1,
 "name": &"death",
 "speed": 10.0
 }, {
@@ -1257,8 +1257,9 @@ texture_filter = 1
 position = Vector2(-1, -23)
 scale = Vector2(1.546875, 1.9481112)
 sprite_frames = SubResource("SpriteFrames_p82b6")
-animation = &"death"
+animation = &"attack_1"
 autoplay = "idle_bop"
+frame_progress = 0.024330493
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1924738436]
 z_as_relative = false
