@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://crje6dd3wswk3"]
+
+[ext_resource type="Texture2D" uid="uid://d11ai5rsxhpkr" path="res://assets/pixilart-sprite - Kopi.png" id="1_4kwec"]
+[ext_resource type="Script" uid="uid://cr6ymkpybhp8t" path="res://scripts/lever.gd" id="1_ncfea"]
+[ext_resource type="FontFile" uid="uid://do16aophm8xgt" path="res://assets/pixel_operator/PixelOperatorMono8.ttf" id="3_qxmkn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncfea"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxmkn"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8di2w"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkrws"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efr3d"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3flmr"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igrgq"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxk16"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5pcx"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hio1q"]
+atlas = ExtResource("1_4kwec")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r0ofg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncfea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxmkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8di2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dkrws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efr3d")
+}],
+"loop": 0,
+"name": &"lever_1",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3flmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igrgq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxk16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5pcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hio1q")
+}],
+"loop": 0,
+"name": &"lever_2",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qxmkn"]
+radius = 26.004807
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tykhb"]
+radius = 26.019224
+
+[node name="lever" type="Area2D" unique_id=104441195]
+script = ExtResource("1_ncfea")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1523269935]
+sprite_frames = SubResource("SpriteFrames_r0ofg")
+animation = &"lever_2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=706289946]
+position = Vector2(0, -0.5)
+shape = SubResource("CircleShape2D_qxmkn")
+
+[node name="Message_area" type="Area2D" parent="." unique_id=1370372814]
+
+[node name="Label" type="Label" parent="Message_area" unique_id=1801810790]
+offset_left = -61.0
+offset_top = -63.0
+offset_right = 214.0
+offset_bottom = -40.0
+theme_override_colors/font_color = Color(0.19607843, 0.0627451, 1, 1)
+theme_override_fonts/font = ExtResource("3_qxmkn")
+theme_override_font_sizes/font_size = 11
+text = "press 'Q' to toggle lever"
+
+[node name="message_radius" type="CollisionShape2D" parent="Message_area" unique_id=1541222878]
+shape = SubResource("CircleShape2D_tykhb")
