@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bx63jfefpd8sb" path="res://scenes/spike.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b4sir3d645vbs" path="res://scenes/UI.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dqc0ccyymmuah" path="res://scenes/laser.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://crje6dd3wswk3" path="res://scenes/lever.tscn" id="6_p57ef"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -323,3 +324,6 @@ position = Vector2(-261, -30)
 [node name="laser" parent="." unique_id=406509937 instance=ExtResource("5_iywne")]
 position = Vector2(-102, -80)
 rotation = -1.5819955
+
+[node name="lever" parent="." unique_id=104441195 instance=ExtResource("6_p57ef")]
+position = Vector2(65, -24)
