@@ -3,12 +3,12 @@ extends CharacterBody2D
 const SPEED = 130.0
 const DASH_SPEED_MULTIPLIER = 2.5
 const JUMP_VELOCITY = -360.0
-const WALL_JUMP_PUSHBACK = 100.0 
+const WALL_JUMP_PUSHBACK = 80.0 
 const WALL_SLIDE_SPEED = 100.0 
 
 const DASH_DURATION = 0.25 
 const DASH_COOLDOWN = 0.7  
-const WALL_JUMP_LOCK_TIME = 0.25 
+const WALL_JUMP_LOCK_TIME = 0.1 
 
 var dash_time_left := 0.0
 var dash_cooldown_left := 0.0
@@ -20,11 +20,20 @@ var wall_jump_lock_left := 0.0
 var is_dead := false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var fade: ColorRect = $"../UI/Fade"
+var fade: ColorRect # No path attached, generated dynamically
 
 func _ready() -> void:
-	fade.color.a = 0.0
+	# Universally generate the fade screen on top of everything
+	var canvas = CanvasLayer.new()
+	canvas.layer = 100 
+	add_child(canvas)
 	
+	fade = ColorRect.new()
+	fade.color = Color(0, 0, 0, 0) # Start as transparent black
+	fade.set_anchors_preset(Control.PRESET_FULL_RECT) # Stretch to screen size
+	canvas.add_child(fade)
+	
+	# Checkpoint logic
 	if not Global.has_checkpoint:
 		Global.checkpoint_position = global_position
 		Global.has_checkpoint = true
