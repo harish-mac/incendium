@@ -24,8 +24,21 @@ var _fade: ColorRect
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+var is_attacking := false
+var attack_index := 0
+
+var attack_animations = [
+	"attack_1",
+	"attack_2_slash",
+	"attack_3_slas" # CHANGE THIS to your exact 3rd animation name
+]
 
 func _ready() -> void:
+	# Death animations must NOT loop, otherwise animation_finished never fires
+	# and die() waits forever. Forced here so a scene merge can't break it.
+	animated_sprite.sprite_frames.set_animation_loop("death", false)
+	animated_sprite.sprite_frames.set_animation_loop("death_final", false)
+
 	# Checkpoint logic
 	if not Global.has_checkpoint:
 		Global.checkpoint_position = global_position
@@ -39,10 +52,10 @@ func _get_fade() -> ColorRect:
 	if is_instance_valid(_fade):
 		return _fade
 
-	var ui := get_tree().get_first_node_in_group("game_ui")
-	if ui and ui.get("fade") is ColorRect:
-		_fade = ui.fade
-		return _fade
+	for node in get_tree().get_nodes_in_group("game_ui"):
+		if node.get("fade") is ColorRect:
+			_fade = node.fade
+			return _fade
 
 	var canvas := CanvasLayer.new()
 	canvas.layer = 100
@@ -74,6 +87,25 @@ func _physics_process(delta: float) -> void:
 
 	var direction := Input.get_axis("move_left", "move_right")
 
+	# Start attack
+	if ( Input.is_action_just_pressed("attack") or Input.is_action_pressed("attack") ) and not is_attacking:
+		attack()
+
+# Handle attack
+	if is_attacking:
+		if not Input.is_action_pressed("attack"):
+			is_attacking = false
+			animated_sprite.stop()
+
+		# Attack animation finished while mouse is still held
+		elif not animated_sprite.is_playing():
+			attack_index += 1
+
+			if attack_index >= attack_animations.size():
+				attack_index = 0
+
+			animated_sprite.play(attack_animations[attack_index])
+	
 	# Jump & wall jump
 	if Input.is_action_just_pressed("jump") and not is_dashing:
 		if is_on_floor():
@@ -110,7 +142,9 @@ func _physics_process(delta: float) -> void:
 		dash_direction = -1.0 if animated_sprite.flip_h else 1.0
 
 	# Movement and animations
-	if is_dashing:
+	if is_attacking:
+		pass
+	elif is_dashing:
 		velocity.x = dash_direction * SPEED * DASH_SPEED_MULTIPLIER
 		velocity.y = 0
 		animated_sprite.play("roll")
@@ -183,3 +217,12 @@ func game_over() -> void:
 	Global.lives = 3
 	Global.has_checkpoint = false
 	get_tree().reload_current_scene()
+
+func attack() -> void:
+	if is_attacking or is_dashing or is_dead:
+		return
+
+	is_attacking = true
+	velocity.x = 0
+
+	animated_sprite.play(attack_animations[attack_index])
