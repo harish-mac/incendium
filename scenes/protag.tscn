@@ -1249,9 +1249,11 @@ radius = 4.5252523
 height = 12.319625
 
 [node name="Protag" type="CharacterBody2D" unique_id=246469202 groups=["player"]]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_j406x")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=634486738]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=634486738 groups=["player"]]
 z_index = 1
 texture_filter = 1
 position = Vector2(-1, -23)
@@ -1259,18 +1261,18 @@ scale = Vector2(1.546875, 1.9481112)
 sprite_frames = SubResource("SpriteFrames_p82b6")
 animation = &"attack_1"
 autoplay = "idle_bop"
-frame_progress = 0.024330493
+frame_progress = 0.81797844
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1924738436]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1924738436 groups=["player"]]
 z_as_relative = false
 texture_filter = 1
 position = Vector2(0, -12)
 scale = Vector2(1.546875, 1.9481112)
 shape = SubResource("CapsuleShape2D_p82b6")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1397242894]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1397242894 groups=["player"]]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1589347322]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1589347322 groups=["player"]]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0

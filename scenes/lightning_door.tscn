@@ -1,108 +1,108 @@
-[gd_scene format=3 uid="uid://bj8n5liw8ecdf"]
+[gd_scene format=3 uid="uid://c7ieg32w5cwxe"]
 
-[ext_resource type="Texture2D" uid="uid://dam3pg0g7bs12" path="res://assets/Lightning Trap - Level 1.png" id="1_fft7m"]
+[ext_resource type="Texture2D" uid="uid://dam3pg0g7bs12" path="res://assets/Lightning Trap - Level 1.png" id="1_faonq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blw5c"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(480, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m68a6"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(384, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sgsds"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(576, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1n6da"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(672, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ccamv"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(768, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_to0sq"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(864, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tuirm"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(384, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aj38i"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(480, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ig0of"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(576, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a7ivt"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(576, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7t5s6"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(384, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mxmmx"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(480, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kmu2x"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(672, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_agvjq"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(576, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3igk"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(384, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1v718"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(480, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sytbd"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(480, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_th60m"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(0, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lq7gl"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(96, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrgfs"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(192, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qt213"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(288, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5b80d"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(384, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lndpl"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(480, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fpuat"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(576, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4rcsa"]
-atlas = ExtResource("1_fft7m")
+atlas = ExtResource("1_faonq")
 region = Rect2(672, 0, 96, 96)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_tykhb"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_bexhj"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -195,90 +195,11 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_blw5c"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3, 4.999999)]
-}
+[node name="Area2D" type="Area2D" unique_id=780283275]
 
-[sub_resource type="Animation" id="Animation_fft7m"]
-resource_name = "beam"
-length = 1.2
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.90000004, 1, 1.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(3, 4.999999), Vector2(15, 0.9999976)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_blw5c"]
-_data = {
-&"RESET": SubResource("Animation_blw5c"),
-&"beam": SubResource("Animation_fft7m")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fft7m"]
-size = Vector2(18.000004, 266.5)
-
-[node name="Lightning_trap" type="Area2D" unique_id=1636323488]
-rotation = 6.2831855
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=74547409]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1940356914]
 texture_filter = 1
-position = Vector2(-137.99998, -19.999975)
-scale = Vector2(2.9427085, 3.3385417)
-sprite_frames = SubResource("SpriteFrames_tykhb")
+position = Vector2(-5.0000076, -83.00001)
+scale = Vector2(3.6484373, 4.471354)
+sprite_frames = SubResource("SpriteFrames_bexhj")
 animation = &"laser_end"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D" unique_id=1011766307]
-root_node = NodePath("../..")
-libraries/ = SubResource("AnimationLibrary_blw5c")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=703415411]
-position = Vector2(3, 4.999999)
-shape = SubResource("RectangleShape2D_fft7m")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CollisionShape2D" unique_id=1094331253]
-root_node = NodePath("../..")
-libraries/ = SubResource("AnimationLibrary_blw5c")
