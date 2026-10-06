@@ -24,10 +24,14 @@ var is_executing := false  # true while a stealth-kill cutscene plays
 var _fade: ColorRect
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+<<<<<<< HEAD
 @onready var jump_sound: AudioStreamPlayer = $JumpSound
 @onready var land_sound: AudioStreamPlayer = $LandSound
 var was_on_floor := false
 
+=======
+@onready var dash_sound = $DashSound # <-- Add this line
+>>>>>>> origin/tanmay
 var is_attacking := false
 var attack_index := 0
 
@@ -159,6 +163,7 @@ func _physics_process(delta: float) -> void:
 
 	# Trigger dash
 	if Input.is_action_just_pressed("dash") and dash_cooldown_left <= 0:
+		dash_sound.play()
 		is_dashing = true
 		dash_time_left = DASH_DURATION
 		dash_cooldown_left = DASH_COOLDOWN
