@@ -50,6 +50,7 @@ func set_hidden(hidden: bool) -> void:
 		animated_sprite.modulate.a = 0.5 if is_hidden else 1.0
 
 func _ready() -> void:
+	add_to_group("player")
 	# Death animations must NOT loop, otherwise animation_finished never fires
 	# and die() waits forever. Forced here so a scene merge can't break it.
 	animated_sprite.sprite_frames.set_animation_loop("death", false)

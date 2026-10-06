@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cp1od8wfxpvy"]
+
+[ext_resource type="Texture2D" uid="uid://cpv4n0upuasil" path="res://assets/Fire Effect and Bullet 16x16.png" id="1_c8fcr"]
+[ext_resource type="Script" uid="uid://77x45grik8rg" path="res://scripts/projectile.gd" id="1_q3m7n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8fcr"]
+atlas = ExtResource("1_c8fcr")
+region = Rect2(480, 156, 16, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3m7n"]
+atlas = ExtResource("1_c8fcr")
+region = Rect2(496, 156, 16, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_softn"]
+atlas = ExtResource("1_c8fcr")
+region = Rect2(512, 156, 16, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6q2a6"]
+atlas = ExtResource("1_c8fcr")
+region = Rect2(528, 156, 16, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byeak"]
+atlas = ExtResource("1_c8fcr")
+region = Rect2(544, 156, 16, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxwu6"]
+atlas = ExtResource("1_c8fcr")
+region = Rect2(560, 156, 16, 52)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6aapk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8fcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3m7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_softn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6q2a6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byeak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxwu6")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tykhb"]
+radius = 29.0
+
+[node name="Area2D" type="Area2D" unique_id=1986841359]
+collision_layer = 0
+script = ExtResource("1_q3m7n")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1241366779]
+texture_filter = 1
+position = Vector2(2.5000002, 3.8880567e-06)
+scale = Vector2(3.5625, 2.0384617)
+sprite_frames = SubResource("SpriteFrames_6aapk")
+frame_progress = 0.7098198
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1841852691]
+position = Vector2(5, 26)
+shape = SubResource("CircleShape2D_tykhb")
