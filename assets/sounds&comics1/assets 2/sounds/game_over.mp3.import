@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cwp0fvrt3b65y"
+path="res://.godot/imported/game_over.mp3-ed207782a2900f8a060f2eb65ad7b6f9.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds&comics1/assets 2/sounds/game_over.mp3"
+dest_files=["res://.godot/imported/game_over.mp3-ed207782a2900f8a060f2eb65ad7b6f9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://d1sjedmpvnc0w"]
 
-[ext_resource type="PackedScene" uid="uid://cxdulcap0vg37" path="res://scenes/protag.tscn" id="1_fjgwf"]
+[ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="1_fjgwf"]
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="2_4r6am"]
 [ext_resource type="PackedScene" uid="uid://dngygc3ud774e" path="res://scenes/laser_switch_pair.tscn" id="3_dh65m"]
 [ext_resource type="PackedScene" uid="uid://be0xfuai1ysuy" path="res://scenes/angel.tscn" id="4_mmcte"]
 [ext_resource type="PackedScene" uid="uid://dqc0ccyymmuah" path="res://scenes/laser.tscn" id="5_ka01d"]
-[ext_resource type="PackedScene" uid="uid://cs8l61jrq8s8k" path="res://scenes/platformoneway.tscn" id="6_a4kew"]
+[ext_resource type="PackedScene" uid="uid://cs8l61jrq8s8k" path="res://scenes/platform.tscn" id="6_a4kew"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_itj2v"]
 texture = ExtResource("2_4r6am")

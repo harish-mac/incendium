@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cgcy0ixpfrbqw"]
+[gd_scene format=3 uid="uid://bqps5w24we7cf"]
 
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="1_edvd8"]
 [ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="2_6x3se"]
