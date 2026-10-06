@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://4gatkpxy07gt"]
+
+[ext_resource type="Script" uid="uid://cxxgrgjdkoey3" path="res://scripts/ambush_zone.gd" id="1_rqnl0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epyq8"]
+
+[node name="AmbushZone" type="Area2D" unique_id=796073900]
+script = ExtResource("1_rqnl0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=928075441]
+shape = SubResource("RectangleShape2D_epyq8")

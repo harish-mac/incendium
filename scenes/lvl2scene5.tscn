@@ -316,6 +316,7 @@ layer_0/tile_data = PackedInt32Array(131070, 458752, 7, 131071, 458752, 7, 65536
 position = Vector2(1, -17)
 
 [node name="Camera2D" type="Camera2D" parent="Protag" unique_id=1173512110]
+zoom = Vector2(2, 2)
 
 [node name="Asset220" type="Sprite2D" parent="." unique_id=1244519885]
 position = Vector2(-124, 129)

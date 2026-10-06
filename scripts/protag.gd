@@ -33,6 +33,22 @@ var attack_animations = [
 	"attack_3_slas" # CHANGE THIS to your exact 3rd animation name
 ]
 
+# Add these variables near the top of protag.gd
+var is_hidden: bool = false
+var _ambush_count: int = 0
+
+func set_hidden(hidden: bool) -> void:
+	if hidden:
+		_ambush_count += 1
+	else:
+		_ambush_count = max(0, _ambush_count - 1)
+	
+	is_hidden = _ambush_count > 0
+	
+	# Visual stealth feedback: semi-transparent when hidden
+	if animated_sprite:
+		animated_sprite.modulate.a = 0.5 if is_hidden else 1.0
+
 func _ready() -> void:
 	# Death animations must NOT loop, otherwise animation_finished never fires
 	# and die() waits forever. Forced here so a scene merge can't break it.
