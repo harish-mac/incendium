@@ -258,9 +258,7 @@ func respawn() -> void:
 
 func game_over() -> void:
 	print("GAME OVER")
-	Global.lives = 3
-	Global.has_checkpoint = false
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 
 func attack() -> void:
 	if is_attacking or is_dashing or is_dead:

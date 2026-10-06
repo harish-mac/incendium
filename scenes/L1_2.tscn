@@ -327,6 +327,11 @@ position = Vector2(1218, -4)
 position = Vector2(1, 0)
 zoom = Vector2(2, 2)
 
+[node name="CharacterBody2D" parent="." unique_id=653656776 instance=ExtResource("6_br5u3")]
+position = Vector2(1796.0001, -94)
+patrol_offset = Vector2(150, 0)
+patrol_duration = 2.25
+
 [node name="TileMap" type="TileMap" parent="." unique_id=1313403733]
 position = Vector2(-3, 0)
 rotation = -0.0003066961
@@ -356,11 +361,9 @@ script = ExtResource("7_4ocbg")
 position = Vector2(1761.7821, 710.54047)
 shape = SubResource("RectangleShape2D_j8uru")
 
-[node name="CharacterBody2D" parent="." unique_id=653656776 instance=ExtResource("6_br5u3")]
-position = Vector2(1831, -99)
-
-[node name="CharacterBody2D2" parent="." unique_id=1971440799 instance=ExtResource("6_br5u3")]
-position = Vector2(2071, 20.000002)
+[node name="CharacterBody2D2" parent="TileMap" unique_id=1971440799 instance=ExtResource("6_br5u3")]
+position = Vector2(2027.9933, 22.621979)
+rotation = 0.00030669614
 
 [connection signal="body_entered" from="TileMap/trans" to="TileMap/trans" method="_on_body_entered"]
 [connection signal="body_entered" from="TileMap/floorKillZone" to="TileMap/floorKillZone" method="_on_body_entered"]

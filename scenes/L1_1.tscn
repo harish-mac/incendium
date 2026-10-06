@@ -346,6 +346,7 @@ shape = SubResource("RectangleShape2D_0w4sr")
 position = Vector2(1, -362)
 
 [node name="UI" parent="." unique_id=1469340165 instance=ExtResource("4_x435b")]
+visible = false
 
 [node name="AmbushZone" parent="." unique_id=796073900 instance=ExtResource("5_hxh1g")]
 position = Vector2(496, 410.00003)
@@ -377,10 +378,10 @@ movement_type = 1
 position = Vector2(24, 136)
 
 [node name="LaserSwitchPair3" parent="." unique_id=288124440 instance=ExtResource("6_medgt")]
-position = Vector2(652, 312)
+position = Vector2(633, 303)
 
 [node name="laser" parent="LaserSwitchPair3" index="0" unique_id=406509937]
-position = Vector2(12, 3)
+position = Vector2(-6, 3)
 movement_type = 2
 cycle_duration = 10.0
 

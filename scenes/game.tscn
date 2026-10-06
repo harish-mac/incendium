@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://7usypdxhrmyi"]
 
-[ext_resource type="PackedScene" uid="uid://cxdulcap0vg37" path="res://scenes/protag.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://bx63jfefpd8sb" path="res://scenes/spike.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b4sir3d645vbs" path="res://scenes/UI.tscn" id="4_lbhrr"]

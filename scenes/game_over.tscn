@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://tgj0xryrsq6s"]
+
+[ext_resource type="Script" uid="uid://dntfa65g4wruu" path="res://scripts/game_over.gd" id="1_go"]
+[ext_resource type="Texture2D" uid="uid://bid5qwstidh4" path="res://assets/sounds&comics1/assets 2/game-over.png" id="2_tbwuq"]
+[ext_resource type="AudioStream" uid="uid://cwp0fvrt3b65y" path="res://assets/sounds&comics1/assets 2/sounds/game_over.mp3" id="3_racf3"]
+
+[node name="GameOver" type="CanvasLayer" unique_id=627444085]
+script = ExtResource("1_go")
+game_over_image = ExtResource("2_tbwuq")
+game_over_sound = ExtResource("3_racf3")

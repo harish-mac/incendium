@@ -16,3 +16,10 @@ func _process(delta: float) -> void:
 		time_left = 0.0
 		# Optional: Trigger a game over or penalty here when time runs out
 		
+
+func reset_game() -> void:
+	lives = MAX_LIVES
+	has_checkpoint = false
+	checkpoint_position = Vector2.ZERO
+	checkpoint_scene = ""
+	time_left = 15.0 * 60.0
