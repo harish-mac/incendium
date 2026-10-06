@@ -19,6 +19,7 @@ var dash_direction := 1.0
 var wall_jump_lock_left := 0.0
 
 var is_dead := false
+var is_executing := false  # true while a stealth-kill cutscene plays
 
 var _fade: ColorRect
 
@@ -32,6 +33,22 @@ var attack_animations = [
 	"attack_2_slash",
 	"attack_3_slas" # CHANGE THIS to your exact 3rd animation name
 ]
+
+# Add these variables near the top of protag.gd
+var is_hidden: bool = false
+var _ambush_count: int = 0
+
+func set_hidden(hidden: bool) -> void:
+	if hidden:
+		_ambush_count += 1
+	else:
+		_ambush_count = max(0, _ambush_count - 1)
+	
+	is_hidden = _ambush_count > 0
+	
+	# Visual stealth feedback: semi-transparent when hidden
+	if animated_sprite:
+		animated_sprite.modulate.a = 0.5 if is_hidden else 1.0
 
 func _ready() -> void:
 	add_to_group("player")
@@ -77,7 +94,7 @@ func _fade_to(alpha: float, duration: float = 0.4) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if is_dead:
+	if is_dead or is_executing:
 		return
 
 	# Gravity + wall slide limit
@@ -182,7 +199,7 @@ func _physics_process(delta: float) -> void:
 
 
 func die() -> void:
-	if is_dead:
+	if is_dead or is_executing:
 		return
 
 	is_dead = true
@@ -227,3 +244,22 @@ func attack() -> void:
 	velocity.x = 0
 
 	animated_sprite.play(attack_animations[attack_index])
+
+
+# --- Stealth execution (called by the angel) ---
+
+func begin_execution() -> void:
+	is_executing = true
+	velocity = Vector2.ZERO
+	is_attacking = false
+	is_dashing = false
+	animated_sprite.hide()  # the cutscene draws him instead
+
+
+func end_execution(new_position: Vector2, face_dir: int) -> void:
+	global_position = new_position
+	velocity = Vector2.ZERO
+	animated_sprite.flip_h = face_dir < 0
+	animated_sprite.show()
+	animated_sprite.play("idle_bop")
+	is_executing = false

@@ -1,0 +1,184 @@
+[gd_scene format=3 uid="uid://cdvblevmgqh42"]
+
+[ext_resource type="Texture2D" uid="uid://d24jgj08hircw" path="res://assets/goblin_scout_v5_weapons_dagger_1_silhouette.png" id="1_xw026"]
+[ext_resource type="Texture2D" uid="uid://cv0tf706r8jwc" path="res://assets/angel-f-002.png" id="2_x2yf0"]
+[ext_resource type="Texture2D" uid="uid://cc2xcwj7wd2eq" path="res://assets/Explosion 2 SpriteSheet.png" id="3_u1clk"]
+
+[sub_resource type="Animation" id="Animation_sfn7j"]
+resource_name = "Kill_Animation"
+length = 5.0
+step = 0.1
+
+[sub_resource type="Animation" id="Animation_klmwg"]
+resource_name = "Killscene"
+length = 2.5000000000000004
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("angel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 4, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("effect:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 0.6, 0.7, 0.8, 0.90000004, 1, 1.1, 1.2, 1.3000001, 1.4, 1.5, 1.6, 1.7, 1.8000001, 1.9, 2, 2.1000001, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("angel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("player:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.90000004, 1, 1.1, 1.2, 1.3000001, 1.4, 1.5, 1.6, 1.7, 1.8000001, 1.9, 2, 2.1000001, 2.2, 2.3, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [160, 161, 162, 163, 164, 165, 166, 167, 64, 65, 66, 67, 68, 69, 70, 71, 70, 69, 68, 67, 66, 65, 64, 65, 66]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("effect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 2.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_a6pub"]
+length = 9.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("angel:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("effect:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("angel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("player:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [160]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("effect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2ltc2"]
+resource_name = "angel"
+step = 0.1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_26eq7"]
+_data = {
+&"Kill_Animation": SubResource("Animation_sfn7j"),
+&"Killscene": SubResource("Animation_klmwg"),
+&"RESET": SubResource("Animation_a6pub"),
+&"angel": SubResource("Animation_2ltc2")
+}
+
+[node name="Kill_Animation" type="Node2D" unique_id=520500850]
+position = Vector2(-13, -73)
+
+[node name="player" type="Sprite2D" parent="." unique_id=1872424294]
+texture_filter = 1
+position = Vector2(18.999998, 54)
+scale = Vector2(1.078125, 1.0625)
+texture = ExtResource("1_xw026")
+hframes = 16
+vframes = 19
+frame = 160
+
+[node name="angel" type="Sprite2D" parent="." unique_id=324089059]
+visible = false
+texture_filter = 1
+position = Vector2(54.999996, 46)
+scale = Vector2(0.8333334, 0.80468744)
+texture = ExtResource("2_x2yf0")
+hframes = 3
+vframes = 4
+frame = 3
+
+[node name="effect" type="Sprite2D" parent="." unique_id=1887861081]
+visible = false
+texture_filter = 1
+position = Vector2(53, 42)
+scale = Vector2(1.0286458, 1.5)
+texture = ExtResource("3_u1clk")
+hframes = 18
+frame = 17
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1653058994]
+libraries/ = SubResource("AnimationLibrary_26eq7")
