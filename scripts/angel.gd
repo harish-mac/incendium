@@ -24,7 +24,8 @@ const PROMPT_FONT_PATH: String = "res://assets/pixel_operator/PixelOperator8.ttf
 
 @export_group("Detection")
 ## Seconds of seeing the player (added up) before she turns red.
-@export var detect_time: float = 2.0
+@export var detect_time: float = 1
+
 ## Seconds she stays RED (warning) before the fireball actually launches.
 @export var alert_windup: float = 0.7
 ## How fast suspicion drains when she can't see the player (1.0 = same speed it builds).
@@ -506,21 +507,41 @@ func _execute(player: Node2D) -> void:
 		_color_tween.kill()
 	vision_cone.set_deferred("monitoring", false)
 	vision_cone.hide()
-	var angel_anchor := to_global(Vector2(sprite.position.x, _sprite_base_y))
+
+	var angel_pos: Vector2 = sprite.global_position
+	var angel_scale: Vector2 = sprite.global_scale.abs()
 	sprite.hide()
 
 	# Freeze and hide the player (his sprite is replaced by the cutscene)
 	var player_y := player.global_position.y
+	var player_sprite := player.get_node_or_null("AnimatedSprite2D") as Node2D
+	var player_sprite_pos: Vector2 = player.global_position
+	var player_sprite_scale: Vector2 = Vector2.ONE
+	if player_sprite != null:
+		player_sprite_pos = player_sprite.global_position
+		player_sprite_scale = player_sprite.scale.abs()
 	if player.has_method("begin_execution"):
 		player.begin_execution()
 
-	# Put the cutscene so ITS angel stands exactly where the real angel was,
-	# mirrored if she is facing left
+	# Mirror the cutscene if she faces left, but KEEP its authored 1.5 scale
 	var dir := facing if kill_scene_angel_faces_right else -facing
 	get_tree().current_scene.add_child(scene)
-	scene.scale.x = dir
-	scene.global_position = angel_anchor - Vector2(cut_angel.position.x * dir, cut_angel.position.y)
+	var root_scale := scene.scale.abs()
+	scene.scale = Vector2(root_scale.x * dir, root_scale.y)
 
+	# Remember where the explosion sits relative to the cutscene angel
+	var effect := scene.get_node_or_null("effect") as Node2D
+	var effect_offset := Vector2.ZERO
+	if effect != null:
+		effect_offset = effect.global_position - cut_angel.global_position
+
+	# Make the cutscene sprites the SAME size and position as the real ones
+	cut_angel.scale = angel_scale / root_scale
+	cut_angel.global_position = angel_pos
+	cut_player.scale = player_sprite_scale / root_scale
+	cut_player.global_position = player_sprite_pos
+	if effect != null:
+		effect.global_position = angel_pos + effect_offset
 	# Play it once (a looping animation would never "finish")
 	cut_anim.get_animation(kill_animation_name).loop_mode = Animation.LOOP_NONE
 	cut_anim.play(kill_animation_name)

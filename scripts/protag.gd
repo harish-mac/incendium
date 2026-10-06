@@ -199,13 +199,15 @@ func _physics_process(delta: float) -> void:
 
 
 func die() -> void:
-	if is_dead or is_executing:
+	if is_dead:
 		return
 
 	is_dead = true
 	Global.lives -= 1
 	velocity = Vector2.ZERO
 	print("Lives remaining: ", Global.lives)
+	
+	_shake_camera() # NEW: Trigger the shake right as the player dies
 
 	if Global.lives > 0:
 		animated_sprite.play("death")
@@ -217,6 +219,19 @@ func die() -> void:
 		await animated_sprite.animation_finished
 		await _fade_to(1.0)
 		game_over()
+
+# --- NEW FUNCTION ---
+func _shake_camera() -> void:
+	var camera = $Camera2D
+	if camera == null:
+		return
+		
+	var shake_tween = create_tween()
+	# Loop 10 times at 0.1 seconds each = exactly 1 second of shaking
+	for i in range(10): 
+		var rand_offset = Vector2(randf_range(-6.0, 6.0), randf_range(-6.0, 6.0))
+		shake_tween.tween_property(camera, "offset", rand_offset, 0.05)
+		shake_tween.tween_property(camera, "offset", Vector2.ZERO, 0.05)
 
 
 func respawn() -> void:
