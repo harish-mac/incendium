@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cxdulcap0vg37"]
+[gd_scene format=3 uid="uid://255apixficp6"]
 
 [ext_resource type="Script" uid="uid://c1i0lut5iv2lm" path="res://scripts/protag.gd" id="1_j406x"]
 [ext_resource type="Texture2D" uid="uid://d24jgj08hircw" path="res://assets/goblin_scout_v5_weapons_dagger_1_silhouette.png" id="2_dbhyc"]
@@ -1245,6 +1245,8 @@ animations = [{
 }]
 
 [node name="Protag" type="CharacterBody2D" unique_id=246469202 groups=["player"]]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_j406x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=634486738]
