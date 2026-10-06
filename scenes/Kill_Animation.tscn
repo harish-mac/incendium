@@ -150,7 +150,8 @@ _data = {
 }
 
 [node name="Kill_Animation" type="Node2D" unique_id=520500850]
-position = Vector2(-13, -73)
+position = Vector2(-13, -120)
+scale = Vector2(1.5, 1.5)
 
 [node name="player" type="Sprite2D" parent="." unique_id=1872424294]
 texture_filter = 1

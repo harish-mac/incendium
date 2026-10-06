@@ -55,7 +55,7 @@ polygon = PackedVector2Array(19, -33, 21, 17, 224, 50, 215, -103)
 [node name="angel_sprite" type="AnimatedSprite2D" parent="." unique_id=317930894]
 scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_tykhb")
-frame_progress = 0.05068441
+frame_progress = 0.6746242
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=882258060]
 position = Vector2(0, 3)
