@@ -4,8 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://cxdulcap0vg37" path="res://scenes/protag.tscn" id="2_6x3se"]
 [ext_resource type="Texture2D" uid="uid://caeaaxlc4v11k" path="res://assets/Demo/Asset 220.png" id="2_l1op4"]
 [ext_resource type="PackedScene" uid="uid://m4iudad1kjpx" path="res://scenes/jump_pad.tscn" id="4_m7wmh"]
+[ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="4_r3dq5"]
 [ext_resource type="PackedScene" uid="uid://cs8l61jrq8s8k" path="res://scenes/platform.tscn" id="6_r3dq5"]
 [ext_resource type="Script" uid="uid://d3cv3c75m4x7n" path="res://scripts/platform3.gd" id="7_d6uyc"]
+[ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="7_hjmkd"]
+[ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="8_c1qkj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1op4"]
 texture = ExtResource("1_edvd8")
@@ -437,6 +440,7 @@ layer_0/tile_data = PackedInt32Array(655390, 786432, 8, 655391, 851968, 8, 52432
 position = Vector2(616, 8)
 
 [node name="floorKillZone" type="Area2D" parent="TileMap2" unique_id=1618247755]
+script = ExtResource("4_r3dq5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap2/floorKillZone" unique_id=2043790345]
 position = Vector2(354.5, 96)
@@ -449,9 +453,16 @@ script = ExtResource("7_d6uyc")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap2/Platform" unique_id=349503700]
 libraries/ = SubResource("AnimationLibrary_phcxj")
 
+[node name="trans" parent="TileMap2" unique_id=1348137182 instance=ExtResource("7_hjmkd")]
+position = Vector2(1142, -104)
+script = ExtResource("8_c1qkj")
+
 [node name="Protag" parent="." unique_id=246469202 instance=ExtResource("2_6x3se")]
 position = Vector2(0, -2)
 
 [node name="Camera2D" type="Camera2D" parent="Protag" unique_id=1827472738]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[connection signal="body_entered" from="TileMap2/floorKillZone" to="TileMap2/floorKillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap2/trans" to="TileMap2/trans" method="_on_body_entered"]

@@ -5,7 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://caeaaxlc4v11k" path="res://assets/Demo/Asset 220.png" id="2_l1op4"]
 [ext_resource type="PackedScene" uid="uid://m4iudad1kjpx" path="res://scenes/jump_pad.tscn" id="4_m7wmh"]
 [ext_resource type="PackedScene" uid="uid://by40qboon7elj" path="res://scenes/saw.tscn" id="4_wx37w"]
+[ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="4_yglje"]
 [ext_resource type="Script" uid="uid://dy21tbd5sr5p5" path="res://scripts/saw5.gd" id="5_yglje"]
+[ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="7_531bp"]
+[ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="8_tvd7h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1op4"]
 texture = ExtResource("1_edvd8")
@@ -441,6 +444,7 @@ libraries/ = SubResource("AnimationLibrary_wx37w")
 autoplay = &"move"
 
 [node name="floorKillZone" type="Area2D" parent="TileMap2" unique_id=1618247755]
+script = ExtResource("4_yglje")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap2/floorKillZone" unique_id=2043790345]
 position = Vector2(355.75, 336)
@@ -466,9 +470,16 @@ script = ExtResource("5_yglje")
 [node name="Area2D5" parent="TileMap2" unique_id=1270042688 instance=ExtResource("4_m7wmh")]
 position = Vector2(901, 22)
 
+[node name="trans" parent="TileMap2" unique_id=1348137182 instance=ExtResource("7_531bp")]
+position = Vector2(1142, -104)
+script = ExtResource("8_tvd7h")
+
 [node name="Protag" parent="." unique_id=246469202 instance=ExtResource("2_6x3se")]
 position = Vector2(0, -2)
 
 [node name="Camera2D" type="Camera2D" parent="Protag" unique_id=1827472738]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[connection signal="body_entered" from="TileMap2/floorKillZone" to="TileMap2/floorKillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap2/trans" to="TileMap2/trans" method="_on_body_entered"]

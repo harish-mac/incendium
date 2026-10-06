@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://m4iudad1kjpx" path="res://scenes/jump_pad.tscn" id="3_xy5ts"]
 [ext_resource type="Script" uid="uid://bdfjl8d76p3la" path="res://scripts/platform2.gd" id="4_to2xh"]
 [ext_resource type="Script" uid="uid://bp5aou36ajt3e" path="res://scripts/platform.gd" id="5_qrlgr"]
+[ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="7_4ocbg"]
+[ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="8_afsyb"]
+[ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="9_qkcdk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1op4"]
 texture = ExtResource("1_edvd8")
@@ -501,6 +504,7 @@ libraries/ = SubResource("AnimationLibrary_4ocbg")
 
 [node name="floorKillZone" type="Area2D" parent="TileMap2" unique_id=361962849]
 position = Vector2(27, -1)
+script = ExtResource("7_4ocbg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap2/floorKillZone" unique_id=1638490199]
 position = Vector2(1070.5, 33)
@@ -518,9 +522,16 @@ shape = SubResource("RectangleShape2D_dqcg3")
 position = Vector2(2061.5, -676)
 shape = SubResource("RectangleShape2D_vokog")
 
+[node name="trans" parent="TileMap2" unique_id=1348137182 instance=ExtResource("8_afsyb")]
+position = Vector2(2789, -615)
+script = ExtResource("9_qkcdk")
+
 [node name="Protag" parent="." unique_id=246469202 instance=ExtResource("2_6x3se")]
 position = Vector2(-961, 782)
 
 [node name="Camera2D" type="Camera2D" parent="Protag" unique_id=1836379864]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[connection signal="body_entered" from="TileMap2/floorKillZone" to="TileMap2/floorKillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap2/trans" to="TileMap2/trans" method="_on_body_entered"]

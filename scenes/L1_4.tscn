@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="1_edvd8"]
 [ext_resource type="PackedScene" uid="uid://cxdulcap0vg37" path="res://scenes/protag.tscn" id="2_6x3se"]
 [ext_resource type="Texture2D" uid="uid://caeaaxlc4v11k" path="res://assets/Demo/Asset 220.png" id="2_l1op4"]
+[ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="3_ejp5c"]
 [ext_resource type="Script" uid="uid://d00hd5htlqsfs" path="res://scripts/saw6.gd" id="4_3l5yl"]
 [ext_resource type="PackedScene" uid="uid://by40qboon7elj" path="res://scenes/saw.tscn" id="4_mhifd"]
 [ext_resource type="Script" uid="uid://b5hkeswyxmxcu" path="res://scripts/saw7.gd" id="5_u2mt0"]
@@ -10,6 +11,8 @@
 [ext_resource type="Script" uid="uid://dmxbdwdn3vrmc" path="res://scripts/saw9.gd" id="7_ndolj"]
 [ext_resource type="Script" uid="uid://j73vc4cbepwr" path="res://scripts/saw10.gd" id="8_udmab"]
 [ext_resource type="Script" uid="uid://bcsbo3d7qbk84" path="res://scripts/saw11.gd" id="9_ejp5c"]
+[ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="11_wu83y"]
+[ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="12_cb617"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1op4"]
 texture = ExtResource("1_edvd8")
@@ -592,6 +595,7 @@ layer_0/tile_data = PackedInt32Array(65535, 458752, 7, 0, 458752, 7, -589828, 65
 
 [node name="floorKillZone" type="Area2D" parent="TileMap" unique_id=361962849]
 position = Vector2(29, 0)
+script = ExtResource("3_ejp5c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/floorKillZone" unique_id=1638490199]
 position = Vector2(531.25, 593)
@@ -644,9 +648,16 @@ script = ExtResource("9_ejp5c")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap/saw6" unique_id=474311866]
 libraries/ = SubResource("AnimationLibrary_r0ohl")
 
+[node name="trans" parent="TileMap" unique_id=1348137182 instance=ExtResource("11_wu83y")]
+position = Vector2(43, -1287)
+script = ExtResource("12_cb617")
+
 [node name="Protag" parent="." unique_id=246469202 instance=ExtResource("2_6x3se")]
 position = Vector2(-961, 782)
 
 [node name="Camera2D" type="Camera2D" parent="Protag" unique_id=1836379864]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[connection signal="body_entered" from="TileMap/floorKillZone" to="TileMap/floorKillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/trans" to="TileMap/trans" method="_on_body_entered"]

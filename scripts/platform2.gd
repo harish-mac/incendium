@@ -5,3 +5,6 @@ extends AnimatableBody2D
 func _ready():
 	# Replace "move" with the exact name of your animation
 	anim.play("move2")
+
+
+ # Replace with function body.
