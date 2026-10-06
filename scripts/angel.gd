@@ -24,12 +24,12 @@ const PROMPT_FONT_PATH: String = "res://assets/pixel_operator/PixelOperator8.ttf
 
 @export_group("Detection")
 ## Seconds of seeing the player (added up) before she turns red.
-@export var detect_time: float = 1
+@export var detect_time: float = 0.7
 
 ## Seconds she stays RED (warning) before the fireball actually launches.
-@export var alert_windup: float = 0.7
+@export var alert_windup: float = 0.3
 ## How fast suspicion drains when she can't see the player (1.0 = same speed it builds).
-@export var suspicion_decay: float = 0.4
+@export var suspicion_decay: float = 0.5
 @export var calm_color: Color = Color(1.0, 1.0, 1.0, 0.35)        # white  = no suspicion
 @export var suspicious_color: Color = Color(1.0, 0.55, 0.1, 0.45) # orange = investigating
 @export var alert_color: Color = Color(1.0, 0.1, 0.1, 0.5)        # red    = fireball launched
@@ -67,13 +67,13 @@ const PROMPT_FONT_PATH: String = "res://assets/pixel_operator/PixelOperator8.ttf
 ## Leave ON if the angel in your cutscene faces RIGHT (the cutscene is mirrored when she faces left).
 @export var kill_scene_angel_faces_right: bool = true
 ## The prompt appears when the player is this many blocks away or closer...
-@export var execute_range_blocks: float = 3.0
+@export var execute_range_blocks: float = 6.0
 ## ...where one block = this many pixels (your TileSet's tile size).
 @export var block_size: float = 16.0
 ## Input action that triggers the execution (created automatically on the F key if missing).
 @export var execute_action: StringName = &"execute"
 @export var require_player_on_floor: bool = true
-@export var prompt_offset: Vector2 = Vector2(0, -80)
+@export var prompt_offset: Vector2 = Vector2(0, 80)
 @export var prompt_font_size: int = 8
 
 # NOTE: these names must match your Scene tree exactly
@@ -418,7 +418,7 @@ func _build_prompt() -> void:
 	_prompt.position = prompt_offset - Vector2(60.0, 0.0)
 	_prompt.add_theme_font_size_override("font_size", prompt_font_size)
 	_prompt.add_theme_color_override("font_color", Color.WHITE)
-	_prompt.add_theme_color_override("font_outline_color", Color.BLACK)
+	_prompt.add_theme_color_override("font_color", Color.RED)
 	_prompt.add_theme_constant_override("outline_size", 3)
 	if ResourceLoader.exists(PROMPT_FONT_PATH):
 		_prompt.add_theme_font_override("font", load(PROMPT_FONT_PATH))

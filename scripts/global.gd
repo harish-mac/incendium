@@ -1,6 +1,7 @@
 extends Node
 
-var lives := 3
+const MAX_LIVES := 9
+var lives := MAX_LIVES
 var checkpoint_position := Vector2.ZERO
 var checkpoint_scene := ""
 var has_checkpoint := false
