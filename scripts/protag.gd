@@ -24,6 +24,9 @@ var is_executing := false  # true while a stealth-kill cutscene plays
 var _fade: ColorRect
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var jump_sound: AudioStreamPlayer = $JumpSound
+@onready var land_sound: AudioStreamPlayer = $LandSound
+var was_on_floor := false
 
 var is_attacking := false
 var attack_index := 0
@@ -128,8 +131,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and not is_dashing:
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
+			jump_sound.play()
 		elif is_on_wall():
 			velocity.y = WALL_JUMP_VELOCITY
+			jump_sound.play()
 
 			# get_wall_normal().x points away from the wall. Holding that
 			# direction leaps across the gap (zig-zag), so push harder.
@@ -195,7 +200,13 @@ func _physics_process(delta: float) -> void:
 		else:
 			animated_sprite.play("idle_bop")
 
+	var fall_speed := velocity.y
 	move_and_slide()
+
+	# Landing thud: just touched the floor after a real fall
+	if is_on_floor() and not was_on_floor and fall_speed > 420.0:
+		land_sound.play()
+	was_on_floor = is_on_floor()
 
 
 func die() -> void:

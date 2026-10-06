@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://d24jgj08hircw" path="res://assets/goblin_scout_v5_weapons_dagger_1_silhouette.png" id="1_xw026"]
 [ext_resource type="Texture2D" uid="uid://cv0tf706r8jwc" path="res://assets/angel-f-002.png" id="2_x2yf0"]
 [ext_resource type="Texture2D" uid="uid://cc2xcwj7wd2eq" path="res://assets/Explosion 2 SpriteSheet.png" id="3_u1clk"]
+[ext_resource type="AudioStream" uid="uid://b0nshi6313q44" path="res://assets/sounds&comics1/assets 2/u_xjrmmgxfru-sword-slash-05-266312.mp3" id="4_u1clk"]
+[ext_resource type="AudioStream" uid="uid://bs3sigcbhnu2u" path="res://assets/sounds&comics1/assets 2/floraphonic-fireball-whoosh-5-179129.mp3" id="5_sfn7j"]
 
 [sub_resource type="Animation" id="Animation_sfn7j"]
 resource_name = "Kill_Animation"
@@ -73,6 +75,36 @@ tracks/4/keys = {
 "update": 1,
 "values": [false, true, false]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Swordsound")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_u1clk")
+}],
+"times": PackedFloat32Array(0.3)
+}
+tracks/5/use_blend = true
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Firesound")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_sfn7j")
+}],
+"times": PackedFloat32Array(0.6)
+}
+tracks/6/use_blend = true
 
 [sub_resource type="Animation" id="Animation_a6pub"]
 length = 9.0
@@ -183,3 +215,7 @@ frame = 17
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1653058994]
 libraries/ = SubResource("AnimationLibrary_26eq7")
+
+[node name="Swordsound" type="AudioStreamPlayer" parent="." unique_id=1715344322]
+
+[node name="Firesound" type="AudioStreamPlayer" parent="." unique_id=2141362158]

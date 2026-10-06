@@ -736,10 +736,10 @@ color = Color(0, 0, 0, 1)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -189.0
-offset_top = 14.0
-offset_right = -99.0
-offset_bottom = 74.0
+offset_left = -177.0
+offset_top = 34.0
+offset_right = -87.0
+offset_bottom = 94.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_5en4g")
@@ -763,7 +763,7 @@ position = Vector2(25, 18)
 scale = Vector2(1.3164063, 1.3476563)
 sprite_frames = SubResource("SpriteFrames_tykhb")
 autoplay = "default"
-frame_progress = 0.7752348
+frame_progress = 0.2678006
 
 [node name="PauseButton" type="TextureButton" parent="." unique_id=71625588]
 anchors_preset = 1
