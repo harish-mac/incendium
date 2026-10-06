@@ -367,6 +367,7 @@ shape = SubResource("RectangleShape2D_jpsk6")
 [node name="trans" parent="tilemap" unique_id=1348137182 instance=ExtResource("7_hjmkd")]
 position = Vector2(485, 604)
 script = ExtResource("8_c1qkj")
+manual_override_path = "uid://b1rhdo57cvvnv"
 
 [node name="Protag" parent="." unique_id=246469202 instance=ExtResource("1_4ac5b")]
 position = Vector2(1, -6)

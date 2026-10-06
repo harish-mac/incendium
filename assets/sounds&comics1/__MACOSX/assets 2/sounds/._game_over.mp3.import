@@ -1,0 +1,18 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bcbk45chbkgs7"
+valid=false
+
+[deps]
+
+source_file="res://assets/sounds&comics1/__MACOSX/assets 2/sounds/._game_over.mp3"
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
