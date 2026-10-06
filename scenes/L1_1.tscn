@@ -420,6 +420,8 @@ centered = false
 
 [node name="Protag" parent="." unique_id=246469202 instance=ExtResource("2_6x3se")]
 position = Vector2(0, -2)
+collision_layer = 1
+collision_mask = 1
 
 [node name="Camera2D" type="Camera2D" parent="Protag" unique_id=1827472738]
 zoom = Vector2(2, 2)

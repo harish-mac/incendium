@@ -4,8 +4,6 @@ extends Node2D
 @onready var soul2: AnimatedSprite2D = $AnimatedSprite2D2
 @onready var soul3: AnimatedSprite2D = $AnimatedSprite2D3
 
-@onready var fade: ColorRect = $"../Fade"
-
 var previous_lives := 3
 var waiting_for_fade := false
 
@@ -30,10 +28,12 @@ func _process(_delta: float) -> void:
 		previous_lives = Global.lives
 
 	# Wait until screen is completely black
-	if waiting_for_fade and fade.color.a >= 0.99:
+	if waiting_for_fade:
+		var fade = get_node_or_null("../Fade")
 
-		soul1.visible = Global.lives >= 1
-		soul2.visible = Global.lives >= 2
-		soul3.visible = Global.lives >= 3
+		if fade != null and fade.color.a >= 0.99:
+			soul1.visible = Global.lives >= 1
+			soul2.visible = Global.lives >= 2
+			soul3.visible = Global.lives >= 3
 
-		waiting_for_fade = false
+			waiting_for_fade = false
