@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://be0xfuai1ysuy"]
 
-[ext_resource type="Script" uid="uid://7o6hn3rxtkwq" path="res://scripts/angel.gd" id="1_6gyu6"]
+[ext_resource type="Script" uid="uid://bj5bkfbsih57n" path="res://scripts/angel.gd" id="1_6gyu6"]
 [ext_resource type="Texture2D" uid="uid://cv0tf706r8jwc" path="res://assets/angel-f-002.png" id="1_fgtlr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mtvsi"]

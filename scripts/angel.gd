@@ -17,8 +17,10 @@ const DEFAULT_PROJECTILE_PATH: String = "res://scenes/projectile.tscn"
 @export var hover_duration: float = 1.0
 
 @export_group("Detection")
-## Seconds of seeing the player (added up) before the fireball launches.
-@export var detect_time: float = 1.33
+## Seconds of seeing the player (added up) before she turns red.
+@export var detect_time: float = 2.0
+## Seconds she stays RED (warning) before the fireball actually launches.
+@export var alert_windup: float = 0.7
 ## How fast suspicion drains when she can't see the player (1.0 = same speed it builds).
 @export var suspicion_decay: float = 0.4
 @export var calm_color: Color = Color(1.0, 1.0, 1.0, 0.35)        # white  = no suspicion
@@ -61,6 +63,7 @@ var start_position: Vector2
 var cooldown_left: float = 0.0
 
 var _suspicion: float = 0.0
+var _windup_left: float = -1.0
 var _sprite_base_y: float = 0.0
 var _cone_base_x: float = 0.0
 var _fireball: Node2D
@@ -109,7 +112,13 @@ func _physics_process(delta: float) -> void:
 
 		if _suspicion >= detect_time:
 			_set_state(State.ALERT)
-			_fire_at(player)
+			# Red warning phase before the fireball launches
+			if _windup_left < 0.0:
+				_windup_left = alert_windup
+			_windup_left -= delta
+			if _windup_left <= 0.0:
+				_windup_left = -1.0
+				_fire_at(player)
 		else:
 			_set_state(State.SUSPICIOUS)
 			# First sighting -> go inspect. Also re-target if the player moved far away.
@@ -117,6 +126,11 @@ func _physics_process(delta: float) -> void:
 					or absf(_last_seen_pos.x - _investigate_center.x) > retarget_distance:
 				_start_investigate()
 	else:
+		# Player escaped (or hid) during the red warning: cancel the attack
+		if _windup_left >= 0.0:
+			_windup_left = -1.0
+			_set_state(State.SUSPICIOUS)
+
 		# Suspicion drains slowly, so her own movement can't reset it instantly
 		_suspicion = maxf(_suspicion - delta * suspicion_decay, 0.0)
 
@@ -131,18 +145,19 @@ func _physics_process(delta: float) -> void:
 func _find_visible_player() -> Node2D:
 	# 1) Anyone inside the vision cone
 	for body in vision_cone.get_overlapping_bodies():
-		if body.is_in_group("player") and body.get("is_dead") != true:
+		if body.is_in_group("player") and body.get("is_dead") != true \
+				and body.get("is_hidden") != true:
 			return body
 
 	# 2) While investigating, also notice a player standing very close
 	if _investigating and close_sense_radius > 0.0:
 		for node in get_tree().get_nodes_in_group("player"):
 			if node is Node2D and node.get("is_dead") != true \
+					and node.get("is_hidden") != true \
 					and global_position.distance_to(node.global_position) <= close_sense_radius:
 				return node as Node2D
 
 	return null
-
 
 # ---------------------------------------------------------------- state ---
 
@@ -162,7 +177,7 @@ func _set_state(new_state: State) -> void:
 	if _color_tween:
 		_color_tween.kill()
 	_color_tween = create_tween()
-	_color_tween.tween_property(vision_polygon, "color", target_color, 0.15)
+	_color_tween.tween_property(vision_polygon, "color", target_color, 0.3)
 
 	# More agitated hover when suspicious or alert
 	_start_hover_effect()
@@ -198,6 +213,7 @@ func _fire_at(player: Node2D) -> void:
 func _fire_failed() -> void:
 	# Don't get stuck red with nothing to show for it
 	_suspicion = 0.0
+	_windup_left = -1.0
 	cooldown_left = fire_cooldown
 	_set_state(State.SUSPICIOUS)
 
@@ -207,6 +223,7 @@ func _on_fireball_gone() -> void:
 		return  # the scene is closing/reloading
 	_fireball = null
 	_suspicion = 0.0
+	_windup_left = -1.0
 	cooldown_left = fire_cooldown
 	_set_state(State.CALM)
 	_return_to_patrol()
