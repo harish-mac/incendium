@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://cgapx6uivhykk"]
+[gd_scene format=3 uid="uid://58et2jov53sp"]
 
 [ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="1_085f6"]
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="2_jl8xo"]
-[ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="3_qd4n3"]
+[ext_resource type="Script" uid="uid://b163rar0r58gk" path="res://scripts/killzone.gd" id="3_qd4n3"]
 [ext_resource type="PackedScene" uid="uid://4gatkpxy07gt" path="res://scenes/ambush_zone.tscn" id="3_rudiy"]
 [ext_resource type="PackedScene" uid="uid://be0xfuai1ysuy" path="res://scenes/angel.tscn" id="4_15qto"]
 [ext_resource type="Texture2D" uid="uid://qvma5b48q1ib" path="res://assets/UniversalUpscaler_Pro_Creative_2_1f1c133c-5127-64d0-9bfb-e9dfd67204b8.jpg" id="4_ovv84"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dngygc3ud774e" path="res://scenes/laser_switch_pair.tscn" id="6_d1dnm"]
 [ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="6_uovev"]
 [ext_resource type="PackedScene" uid="uid://dqc0ccyymmuah" path="res://scenes/laser.tscn" id="7_pksvc"]
-[ext_resource type="PackedScene" uid="uid://c7th0yg7ikeq8" path="res://scenes/platformoneway.tscn" id="11_qd4n3"]
+[ext_resource type="PackedScene" uid="uid://cs8l61jrq8s8k" path="res://scenes/platformoneway.tscn" id="11_qd4n3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2f03c"]
 texture = ExtResource("2_jl8xo")
@@ -351,9 +351,13 @@ scale = Vector2(2.053489, -3.4287992)
 
 [node name="CharacterBody2D" parent="." unique_id=653656776 instance=ExtResource("4_15qto")]
 position = Vector2(836, -38.000008)
+patrol_offset = Vector2(75, 0)
+patrol_duration = 4.0
 
 [node name="CharacterBody2D2" parent="." unique_id=2046234280 instance=ExtResource("4_15qto")]
 position = Vector2(884.00006, -133)
+patrol_offset = Vector2(75, 0)
+patrol_duration = 6.0
 
 [node name="LaserSwitchPair" parent="." unique_id=31792744 instance=ExtResource("6_d1dnm")]
 position = Vector2(739, -319)

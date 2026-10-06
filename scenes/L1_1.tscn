@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="1_goagt"]
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="2_nmtph"]
 [ext_resource type="PackedScene" uid="uid://bx63jfefpd8sb" path="res://scenes/spike.tscn" id="3_33ixb"]
-[ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="3_l1op4"]
+[ext_resource type="Script" uid="uid://b163rar0r58gk" path="res://scripts/killzone.gd" id="3_l1op4"]
 [ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="4_3qcp1"]
 [ext_resource type="PackedScene" uid="uid://b4sir3d645vbs" path="res://scenes/UI.tscn" id="4_x435b"]
 [ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="5_32opr"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://qvma5b48q1ib" path="res://assets/UniversalUpscaler_Pro_Creative_2_1f1c133c-5127-64d0-9bfb-e9dfd67204b8.jpg" id="6_32opr"]
 [ext_resource type="PackedScene" uid="uid://dngygc3ud774e" path="res://scenes/laser_switch_pair.tscn" id="6_medgt"]
 [ext_resource type="PackedScene" uid="uid://be0xfuai1ysuy" path="res://scenes/angel.tscn" id="7_medgt"]
-[ext_resource type="PackedScene" uid="uid://c7th0yg7ikeq8" path="res://scenes/platformoneway.tscn" id="8_wy1hc"]
+[ext_resource type="PackedScene" uid="uid://cs8l61jrq8s8k" path="res://scenes/platformoneway.tscn" id="8_wy1hc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_33ixb"]
 texture = ExtResource("2_nmtph")
@@ -307,7 +307,7 @@ sources/1 = SubResource("TileSetAtlasSource_33ixb")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0w4sr"]
 size = Vector2(4413, 565)
 
-[node name="Node2D" type="Node2D" unique_id=837515467]
+[node name="Node2D2" type="Node2D" unique_id=837515467]
 
 [node name="Protag" parent="." unique_id=246469202 instance=ExtResource("1_goagt")]
 position = Vector2(13, -1)
