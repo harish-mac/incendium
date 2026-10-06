@@ -688,7 +688,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"attack_1",
-"speed": 11.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -720,7 +720,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"attack_2_slash",
-"speed": 11.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -749,7 +749,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"attack_3_sstab",
-"speed": 11.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -835,7 +835,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ij1mg")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"death",
 "speed": 10.0
 }, {
@@ -1244,35 +1244,26 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p82b6"]
-radius = 4.5252523
-height = 12.319625
-
 [node name="Protag" type="CharacterBody2D" unique_id=246469202 groups=["player"]]
-collision_layer = 9
-collision_mask = 9
 script = ExtResource("1_j406x")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=634486738 groups=["player"]]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=634486738]
 z_index = 1
 texture_filter = 1
-position = Vector2(-1, -23)
+position = Vector2(-1, -25)
 scale = Vector2(1.546875, 1.9481112)
 sprite_frames = SubResource("SpriteFrames_p82b6")
-animation = &"attack_1"
+animation = &"death"
 autoplay = "idle_bop"
-frame_progress = 0.81797844
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1924738436 groups=["player"]]
-z_as_relative = false
-texture_filter = 1
-position = Vector2(0, -12)
-scale = Vector2(1.546875, 1.9481112)
-shape = SubResource("CapsuleShape2D_p82b6")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1695582003]
+position = Vector2(0, 0.15475845)
+scale = Vector2(1, 1.0037006)
+polygon = PackedVector2Array(-7, -27.05464, 8, -27.05464, 8, -7.128379, 2, -0.15418786, -2, -0.15418786, -9, -7.128379, -9, -27.05464)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1397242894 groups=["player"]]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1397242894]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1589347322 groups=["player"]]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1589347322]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0

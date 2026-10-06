@@ -199,7 +199,8 @@ animations = [{
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1940356914]
 texture_filter = 1
-position = Vector2(-5.0000076, -83.00001)
-scale = Vector2(3.6484373, 4.471354)
+position = Vector2(-6, -193.00002)
+scale = Vector2(2.7617188, 4.0169272)
 sprite_frames = SubResource("SpriteFrames_bexhj")
-animation = &"laser_end"
+animation = &"laser_middle"
+frame_progress = 0.6017754

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cs8l61jrq8s8k"]
+
+[ext_resource type="Texture2D" uid="uid://d10s3d7ry2tck" path="res://assets/Celestial-Ruins/Ground/Ground-Grass.png" id="1_ba0x2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqcg3"]
+size = Vector2(48, 16)
+
+[node name="Platform" type="AnimatableBody2D" unique_id=396127383]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=435223080]
+texture = ExtResource("1_ba0x2")
+region_enabled = true
+region_rect = Rect2(160, 128, 48, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=42449671]
+shape = SubResource("RectangleShape2D_dqcg3")
+one_way_collision = true
