@@ -1,39 +1,32 @@
 extends Node2D
 
-@onready var soul1: AnimatedSprite2D = $AnimatedSprite2D
-@onready var soul2: AnimatedSprite2D = $AnimatedSprite2D2
-@onready var soul3: AnimatedSprite2D = $AnimatedSprite2D3
+## Horizontal gap between flames (pixels)
+@export var spacing: float = 26.0
 
-var previous_lives := 3
-var waiting_for_fade := false
+var _flames: Array[AnimatedSprite2D] = []
 
 
 func _ready() -> void:
-	soul1.play("default")
-	soul2.play("default")
-	soul3.play("default")
+	# Reuse the 3 flames already in souls.tscn, then clone more up to 9
+	for child in get_children():
+		if child is AnimatedSprite2D:
+			_flames.append(child)
 
-	previous_lives = Global.lives
+	var template: AnimatedSprite2D = _flames[0]
+	while _flames.size() < Global.MAX_LIVES:
+		var clone := template.duplicate() as AnimatedSprite2D
+		add_child(clone)
+		_flames.append(clone)
 
-	soul1.visible = Global.lives >= 1
-	soul2.visible = Global.lives >= 2
-	soul3.visible = Global.lives >= 3
+	# Line them up and desync the animations so they flicker naturally
+	for i in _flames.size():
+		var f := _flames[i]
+		f.position.x = i * spacing
+		f.play("default")
+		f.frame_progress = randf()
 
 
 func _process(_delta: float) -> void:
-
-	# A life was lost
-	if Global.lives < previous_lives:
-		waiting_for_fade = true
-		previous_lives = Global.lives
-
-	# Wait until screen is completely black
-	if waiting_for_fade:
-		var fade = get_node_or_null("../Fade")
-
-		if fade != null and fade.color.a >= 0.99:
-			soul1.visible = Global.lives >= 1
-			soul2.visible = Global.lives >= 2
-			soul3.visible = Global.lives >= 3
-
-			waiting_for_fade = false
+	# One flame per remaining life; they go out from the right
+	for i in _flames.size():
+		_flames[i].visible = i < Global.lives

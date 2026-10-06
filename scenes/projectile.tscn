@@ -65,7 +65,7 @@ texture_filter = 1
 position = Vector2(2.5000002, 3.8880567e-06)
 scale = Vector2(3.5625, 2.0384617)
 sprite_frames = SubResource("SpriteFrames_6aapk")
-frame_progress = 0.7098198
+frame_progress = 0.5176735
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1841852691]
 position = Vector2(5, 26)

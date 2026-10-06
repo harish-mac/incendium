@@ -3,8 +3,14 @@ extends CharacterBody2D
 
 enum State { CALM, SUSPICIOUS, ALERT }
 
+## Emitted when the player executes her (stealth kill).
+signal executed
+
 # Used automatically if the "Projectile Scene" slot in the Inspector is empty
 const DEFAULT_PROJECTILE_PATH: String = "res://scenes/projectile.tscn"
+# Used automatically if the "Kill Scene" slot in the Inspector is empty
+const DEFAULT_KILL_SCENE_PATH: String = "res://scenes/Kill_Animation.tscn"
+const PROMPT_FONT_PATH: String = "res://assets/pixel_operator/PixelOperator8.ttf"
 
 @export_group("Patrol Settings")
 @export var patrol_offset: Vector2 = Vector2(200, 0)
@@ -18,11 +24,12 @@ const DEFAULT_PROJECTILE_PATH: String = "res://scenes/projectile.tscn"
 
 @export_group("Detection")
 ## Seconds of seeing the player (added up) before she turns red.
-@export var detect_time: float = 2.0
+@export var detect_time: float = 0.7
+
 ## Seconds she stays RED (warning) before the fireball actually launches.
-@export var alert_windup: float = 0.7
+@export var alert_windup: float = 0.3
 ## How fast suspicion drains when she can't see the player (1.0 = same speed it builds).
-@export var suspicion_decay: float = 0.4
+@export var suspicion_decay: float = 0.5
 @export var calm_color: Color = Color(1.0, 1.0, 1.0, 0.35)        # white  = no suspicion
 @export var suspicious_color: Color = Color(1.0, 0.55, 0.1, 0.45) # orange = investigating
 @export var alert_color: Color = Color(1.0, 0.1, 0.1, 0.5)        # red    = fireball launched
@@ -52,6 +59,23 @@ const DEFAULT_PROJECTILE_PATH: String = "res://scenes/projectile.tscn"
 @export var fire_cooldown: float = 3.0
 @export var spawn_offset: Vector2 = Vector2(0, -10)
 
+@export_group("Execution (stealth kill)")
+## The kill cutscene (Kill_Animation.tscn). If empty, res://scenes/Kill_Animation.tscn is tried.
+@export var kill_scene: PackedScene
+## Name of the animation inside the cutscene's AnimationPlayer.
+@export var kill_animation_name: StringName = &"Killscene"
+## Leave ON if the angel in your cutscene faces RIGHT (the cutscene is mirrored when she faces left).
+@export var kill_scene_angel_faces_right: bool = true
+## The prompt appears when the player is this many blocks away or closer...
+@export var execute_range_blocks: float = 6.0
+## ...where one block = this many pixels (your TileSet's tile size).
+@export var block_size: float = 16.0
+## Input action that triggers the execution (created automatically on the F key if missing).
+@export var execute_action: StringName = &"execute"
+@export var require_player_on_floor: bool = true
+@export var prompt_offset: Vector2 = Vector2(0, 80)
+@export var prompt_font_size: int = 8
+
 # NOTE: these names must match your Scene tree exactly
 @onready var sprite: AnimatedSprite2D = $angel_sprite
 @onready var vision_cone: Area2D = $VisionCone
@@ -76,6 +100,9 @@ var _last_seen_pos: Vector2
 var _investigate_center: Vector2
 var _search_left: float = 0.0
 
+var _executing: bool = false
+var _prompt: Label
+
 
 func _ready() -> void:
 	start_position = global_position
@@ -87,12 +114,25 @@ func _ready() -> void:
 	if projectile_scene == null and ResourceLoader.exists(DEFAULT_PROJECTILE_PATH):
 		projectile_scene = load(DEFAULT_PROJECTILE_PATH)
 
+	# Stealth-kill setup
+	if kill_scene == null and ResourceLoader.exists(DEFAULT_KILL_SCENE_PATH):
+		kill_scene = load(DEFAULT_KILL_SCENE_PATH)
+	_ensure_execute_action()
+	_build_prompt()
+
 	_apply_facing()
 	_start_hover_effect()
 	_start_patrol()
 
 
 func _physics_process(delta: float) -> void:
+	# Stealth kill: nothing else happens while it plays
+	if _executing:
+		return
+	_update_execute_prompt()
+	if _executing:
+		return
+
 	# Resting after a fireball finished (she is flying back to her patrol)
 	if cooldown_left > 0.0:
 		cooldown_left -= delta
@@ -350,3 +390,168 @@ func _return_to_patrol() -> void:
 	_move_tween.tween_property(self, "global_position", start_position, travel) \
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	_move_tween.tween_callback(_start_patrol)
+
+
+# ------------------------------------------------------------ execution ---
+# Stealth kill: the player gets a prompt when he is close to her BACK.
+
+func _execute_range() -> float:
+	return execute_range_blocks * block_size
+
+
+func _ensure_execute_action() -> void:
+	if InputMap.has_action(execute_action):
+		return
+	InputMap.add_action(execute_action)
+	var ev := InputEventKey.new()
+	ev.physical_keycode = KEY_F
+	InputMap.action_add_event(execute_action, ev)
+
+
+func _build_prompt() -> void:
+	_prompt = Label.new()
+	_prompt.visible = false
+	_prompt.z_index = 100
+	_prompt.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_prompt.custom_minimum_size = Vector2(120.0, 0.0)
+	_prompt.position = prompt_offset - Vector2(60.0, 0.0)
+	_prompt.add_theme_font_size_override("font_size", prompt_font_size)
+	_prompt.add_theme_color_override("font_color", Color.WHITE)
+	_prompt.add_theme_color_override("font_color", Color.RED)
+	_prompt.add_theme_constant_override("outline_size", 3)
+	if ResourceLoader.exists(PROMPT_FONT_PATH):
+		_prompt.add_theme_font_override("font", load(PROMPT_FONT_PATH))
+
+	# Show whatever key is mapped to the action, e.g. "[F] Execute"
+	var key_text := "?"
+	var events := InputMap.action_get_events(execute_action)
+	if events.size() > 0:
+		key_text = events[0].as_text().replace(" (Physical)", "")
+	_prompt.text = "[%s] Execute" % key_text
+	add_child(_prompt)
+
+
+# The player who is close enough AND behind her back, or null
+func _find_executable_player() -> Node2D:
+	# Only while she hasn't noticed anyone / isn't attacking
+	if state == State.ALERT or is_instance_valid(_fireball):
+		return null
+
+	for node in get_tree().get_nodes_in_group("player"):
+		var p := node as Node2D
+		if p == null or p.get("is_dead") == true or p.get("is_executing") == true:
+			continue
+
+		var body := p as CharacterBody2D
+		if require_player_on_floor and body != null and not body.is_on_floor():
+			continue
+
+		# Within the 3-block radius
+		if global_position.distance_to(p.global_position) > _execute_range():
+			continue
+
+		# Her back must be turned: the player is on the side she is NOT facing
+		var dx := p.global_position.x - global_position.x
+		if dx * facing >= 0.0:
+			continue
+
+		return p
+	return null
+
+
+func _update_execute_prompt() -> void:
+	# Safety net: if _ready() ran before this code existed (e.g. the script was
+	# swapped while the game was running), build the prompt now instead of crashing
+	if _prompt == null:
+		_ensure_execute_action()
+		_build_prompt()
+
+	var candidate := _find_executable_player()
+	_prompt.visible = candidate != null
+	if candidate != null and Input.is_action_just_pressed(execute_action):
+		_execute(candidate)
+
+
+func _execute(player: Node2D) -> void:
+	if _executing:
+		return
+
+	# --- Check the cutscene scene BEFORE touching anything ---
+	if kill_scene == null and ResourceLoader.exists(DEFAULT_KILL_SCENE_PATH):
+		kill_scene = load(DEFAULT_KILL_SCENE_PATH)
+	if kill_scene == null:
+		push_error("Angel: no Kill Scene! Drag Kill_Animation.tscn into the 'Kill Scene' slot in the Inspector.")
+		return
+
+	var scene := kill_scene.instantiate() as Node2D
+	var cut_angel := scene.get_node_or_null("angel") as Node2D
+	var cut_player := scene.get_node_or_null("player") as Node2D
+	var cut_anim := scene.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if cut_angel == null or cut_player == null or cut_anim == null \
+			or not cut_anim.has_animation(kill_animation_name):
+		push_error("Angel: the kill scene needs nodes named 'angel', 'player' and 'AnimationPlayer', and an animation called '%s'." % kill_animation_name)
+		scene.free()
+		return
+
+	# --- From here on the execution is happening ---
+	_executing = true
+	_prompt.visible = false
+
+	# Freeze and hide her
+	if _move_tween:
+		_move_tween.kill()
+	if _hover_tween:
+		_hover_tween.kill()
+	if _color_tween:
+		_color_tween.kill()
+	vision_cone.set_deferred("monitoring", false)
+	vision_cone.hide()
+
+	var angel_pos: Vector2 = sprite.global_position
+	var angel_scale: Vector2 = sprite.global_scale.abs()
+	sprite.hide()
+
+	# Freeze and hide the player (his sprite is replaced by the cutscene)
+	var player_y := player.global_position.y
+	var player_sprite := player.get_node_or_null("AnimatedSprite2D") as Node2D
+	var player_sprite_pos: Vector2 = player.global_position
+	var player_sprite_scale: Vector2 = Vector2.ONE
+	if player_sprite != null:
+		player_sprite_pos = player_sprite.global_position
+		player_sprite_scale = player_sprite.scale.abs()
+	if player.has_method("begin_execution"):
+		player.begin_execution()
+
+	# Mirror the cutscene if she faces left, but KEEP its authored 1.5 scale
+	var dir := facing if kill_scene_angel_faces_right else -facing
+	get_tree().current_scene.add_child(scene)
+	var root_scale := scene.scale.abs()
+	scene.scale = Vector2(root_scale.x * dir, root_scale.y)
+
+	# Remember where the explosion sits relative to the cutscene angel
+	var effect := scene.get_node_or_null("effect") as Node2D
+	var effect_offset := Vector2.ZERO
+	if effect != null:
+		effect_offset = effect.global_position - cut_angel.global_position
+
+	# Make the cutscene sprites the SAME size and position as the real ones
+	cut_angel.scale = angel_scale / root_scale
+	cut_angel.global_position = angel_pos
+	cut_player.scale = player_sprite_scale / root_scale
+	cut_player.global_position = player_sprite_pos
+	if effect != null:
+		effect.global_position = angel_pos + effect_offset
+	# Play it once (a looping animation would never "finish")
+	cut_anim.get_animation(kill_animation_name).loop_mode = Animation.LOOP_NONE
+	cut_anim.play(kill_animation_name)
+	await cut_anim.animation_finished
+
+	# The player appears where the cutscene left him: right behind her
+	var end_pos := Vector2(cut_player.global_position.x, player_y)
+	scene.queue_free()
+	if is_instance_valid(player) and player.has_method("end_execution"):
+		player.end_execution(end_pos, facing)
+
+	executed.emit()
+	queue_free()  # the angel is dead

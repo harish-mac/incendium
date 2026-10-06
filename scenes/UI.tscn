@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ch8bmbvu6k2x3" path="res://scenes/souls.tscn" id="1_dj8aq"]
 [ext_resource type="Script" uid="uid://bhqihtp8savbv" path="res://scripts/ui.gd" id="1_ro3t7"]
+[ext_resource type="FontFile" uid="uid://cm1mpr6swnn2j" path="res://assets/pixel_operator/PixelOperatorMono8-Bold.ttf" id="3_5en4g"]
 
 [node name="UI" type="CanvasLayer" unique_id=1469340165 groups=["game_ui"]]
 script = ExtResource("1_ro3t7")
@@ -16,3 +17,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="TimerLabel" type="Label" parent="." unique_id=2018233397]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -119.0
+offset_top = 26.0
+offset_right = -29.0
+offset_bottom = 86.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_5en4g")

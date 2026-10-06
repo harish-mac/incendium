@@ -19,6 +19,7 @@ var dash_direction := 1.0
 var wall_jump_lock_left := 0.0
 
 var is_dead := false
+var is_executing := false  # true while a stealth-kill cutscene plays
 
 var _fade: ColorRect
 
@@ -93,7 +94,7 @@ func _fade_to(alpha: float, duration: float = 0.4) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if is_dead:
+	if is_dead or is_executing:
 		return
 
 	# Gravity + wall slide limit
@@ -205,6 +206,8 @@ func die() -> void:
 	Global.lives -= 1
 	velocity = Vector2.ZERO
 	print("Lives remaining: ", Global.lives)
+	
+	_shake_camera() # NEW: Trigger the shake right as the player dies
 
 	if Global.lives > 0:
 		animated_sprite.play("death")
@@ -216,6 +219,19 @@ func die() -> void:
 		await animated_sprite.animation_finished
 		await _fade_to(1.0)
 		game_over()
+
+# --- NEW FUNCTION ---
+func _shake_camera() -> void:
+	var camera = $Camera2D
+	if camera == null:
+		return
+		
+	var shake_tween = create_tween()
+	# Loop 10 times at 0.1 seconds each = exactly 1 second of shaking
+	for i in range(10): 
+		var rand_offset = Vector2(randf_range(-6.0, 6.0), randf_range(-6.0, 6.0))
+		shake_tween.tween_property(camera, "offset", rand_offset, 0.05)
+		shake_tween.tween_property(camera, "offset", Vector2.ZERO, 0.05)
 
 
 func respawn() -> void:
@@ -243,3 +259,22 @@ func attack() -> void:
 	velocity.x = 0
 
 	animated_sprite.play(attack_animations[attack_index])
+
+
+# --- Stealth execution (called by the angel) ---
+
+func begin_execution() -> void:
+	is_executing = true
+	velocity = Vector2.ZERO
+	is_attacking = false
+	is_dashing = false
+	animated_sprite.hide()  # the cutscene draws him instead
+
+
+func end_execution(new_position: Vector2, face_dir: int) -> void:
+	global_position = new_position
+	velocity = Vector2.ZERO
+	animated_sprite.flip_h = face_dir < 0
+	animated_sprite.show()
+	animated_sprite.play("idle_bop")
+	is_executing = false
