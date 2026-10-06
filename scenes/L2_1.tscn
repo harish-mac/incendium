@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://eph2tbgispw4" path="res://scenes/elevator.tscn" id="2_p5w67"]
 [ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="2_txckr"]
 [ext_resource type="PackedScene" uid="uid://b4sir3d645vbs" path="res://scenes/UI.tscn" id="3_p5w67"]
-[ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="4_rhnpi"]
+[ext_resource type="Script" uid="uid://b163rar0r58gk" path="res://scripts/killzone.gd" id="4_rhnpi"]
 [ext_resource type="PackedScene" uid="uid://dngygc3ud774e" path="res://scenes/laser_switch_pair.tscn" id="5_p5w67"]
 [ext_resource type="PackedScene" uid="uid://dqc0ccyymmuah" path="res://scenes/laser.tscn" id="6_vydkh"]
 [ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="7_7og06"]

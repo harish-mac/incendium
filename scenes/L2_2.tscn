@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="2_0qwf3"]
 [ext_resource type="Texture2D" uid="uid://b1lne8s02vhou" path="res://assets/Lightning Trap - Level 3.png" id="2_0vslr"]
 [ext_resource type="PackedScene" uid="uid://be0xfuai1ysuy" path="res://scenes/angel.tscn" id="4_523yv"]
-[ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="4_tqhbm"]
+[ext_resource type="Script" uid="uid://b163rar0r58gk" path="res://scripts/killzone.gd" id="4_tqhbm"]
 [ext_resource type="PackedScene" uid="uid://dngygc3ud774e" path="res://scenes/laser_switch_pair.tscn" id="5_vdyss"]
 [ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="7_kko6u"]
 [ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="8_wskn7"]
@@ -771,7 +771,7 @@ position = Vector2(130, 142)
 position = Vector2(-198, -54)
 
 [node name="laser" parent="LaserSwitchPair" index="0" unique_id=406509937]
-position = Vector2(121.999985, 47)
+position = Vector2(155, 28.999998)
 rotation = 1.5800786
 
 [node name="lever" parent="LaserSwitchPair" index="1" unique_id=104441195]

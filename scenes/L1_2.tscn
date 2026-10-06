@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="3_royfh"]
 [ext_resource type="Texture2D" uid="uid://bfxf8uashtcgq" path="res://assets/Asset 220.png" id="4_royfh"]
 [ext_resource type="PackedScene" uid="uid://be0xfuai1ysuy" path="res://scenes/angel.tscn" id="6_br5u3"]
-[ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="7_4ocbg"]
+[ext_resource type="Script" uid="uid://b163rar0r58gk" path="res://scripts/killzone.gd" id="7_4ocbg"]
 [ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="8_afsyb"]
 [ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="9_qkcdk"]
 
@@ -316,7 +316,7 @@ sources/1 = SubResource("TileSetAtlasSource_nb5nn")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8uru"]
 size = Vector2(4413, 565)
 
-[node name="Node2D" type="Node2D" unique_id=1712085902]
+[node name="Node2D2" type="Node2D" unique_id=1712085902]
 
 [node name="UI" parent="." unique_id=1469340165 instance=ExtResource("1_cl8lu")]
 
@@ -358,9 +358,12 @@ shape = SubResource("RectangleShape2D_j8uru")
 
 [node name="CharacterBody2D" parent="." unique_id=653656776 instance=ExtResource("6_br5u3")]
 position = Vector2(1831, -99)
+patrol_offset = Vector2(150, 0)
 
 [node name="CharacterBody2D2" parent="." unique_id=1971440799 instance=ExtResource("6_br5u3")]
-position = Vector2(2071, 20.000002)
+position = Vector2(2111, 29.000002)
+patrol_offset = Vector2(150, 0)
+patrol_duration = 1.5
 
 [connection signal="body_entered" from="TileMap/trans" to="TileMap/trans" method="_on_body_entered"]
 [connection signal="body_entered" from="TileMap/floorKillZone" to="TileMap/floorKillZone" method="_on_body_entered"]

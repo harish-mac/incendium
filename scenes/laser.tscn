@@ -76,6 +76,7 @@ animations = [{
 
 [node name="laser" type="Node2D" unique_id=432926618]
 script = ExtResource("1_a7dhc")
+metadata/_edit_horizontal_guides_ = [23.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=966415969]
 texture_filter = 1
@@ -113,7 +114,8 @@ shape = SubResource("RectangleShape2D_r0ofg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=582913887]
 visible = false
 texture_filter = 1
-scale = Vector2(5, 5)
+position = Vector2(1, 51.25)
+scale = Vector2(2.8046877, 3.109375)
 sprite_frames = SubResource("SpriteFrames_tykhb")
 autoplay = "default"
 frame_progress = 0.76209843
