@@ -3,108 +3,178 @@ extends CharacterBody2D
 const SPEED = 130.0
 const DASH_SPEED_MULTIPLIER = 2.5
 const JUMP_VELOCITY = -360.0
-const WALL_JUMP_PUSHBACK = 80.0 
-const WALL_SLIDE_SPEED = 100.0 
+const WALL_JUMP_VELOCITY = -260.0
+const WALL_JUMP_PUSHBACK = 160.0
+const WALL_SLIDE_SPEED = 100.0
 
-const DASH_DURATION = 0.25 
-const DASH_COOLDOWN = 0.7  
-const WALL_JUMP_LOCK_TIME = 0.1 
+const DASH_DURATION = 0.25
+const DASH_COOLDOWN = 0.7
+const WALL_JUMP_LOCK_TIME = 0.08
 
 var dash_time_left := 0.0
 var dash_cooldown_left := 0.0
 var is_dashing := false
-var dash_direction := 1.0 
+var dash_direction := 1.0
 
-var wall_jump_lock_left := 0.0 
+var wall_jump_lock_left := 0.0
 
 var is_dead := false
+var is_executing := false  # true while a stealth-kill cutscene plays
+
+var _fade: ColorRect
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-var fade: ColorRect # No path attached, generated dynamically
+
+var is_attacking := false
+var attack_index := 0
+
+var attack_animations = [
+	"attack_1",
+	"attack_2_slash",
+	"attack_3_slas" # CHANGE THIS to your exact 3rd animation name
+]
+
+# Add these variables near the top of protag.gd
+var is_hidden: bool = false
+var _ambush_count: int = 0
+
+func set_hidden(hidden: bool) -> void:
+	if hidden:
+		_ambush_count += 1
+	else:
+		_ambush_count = max(0, _ambush_count - 1)
+	
+	is_hidden = _ambush_count > 0
+	
+	# Visual stealth feedback: semi-transparent when hidden
+	if animated_sprite:
+		animated_sprite.modulate.a = 0.5 if is_hidden else 1.0
 
 func _ready() -> void:
-	# Universally generate the fade screen on top of everything
-	var canvas = CanvasLayer.new()
-	canvas.layer = 100 
-	add_child(canvas)
-	
-	fade = ColorRect.new()
-	fade.color = Color(0, 0, 0, 0) # Start as transparent black
-	fade.set_anchors_preset(Control.PRESET_FULL_RECT) # Stretch to screen size
-	canvas.add_child(fade)
-	
+	add_to_group("player")
+	# Death animations must NOT loop, otherwise animation_finished never fires
+	# and die() waits forever. Forced here so a scene merge can't break it.
+	animated_sprite.sprite_frames.set_animation_loop("death", false)
+	animated_sprite.sprite_frames.set_animation_loop("death_final", false)
+
 	# Checkpoint logic
 	if not Global.has_checkpoint:
 		Global.checkpoint_position = global_position
 		Global.has_checkpoint = true
 
+
+# Returns the fade rect from the shared UI scene (group "game_ui") if the level
+# has one. Otherwise builds a fallback fade so the player works in any level.
+# Looked up lazily so scene load order doesn't matter.
+func _get_fade() -> ColorRect:
+	if is_instance_valid(_fade):
+		return _fade
+
+	for node in get_tree().get_nodes_in_group("game_ui"):
+		if node.get("fade") is ColorRect:
+			_fade = node.fade
+			return _fade
+
+	var canvas := CanvasLayer.new()
+	canvas.layer = 100
+	add_child(canvas)
+
+	_fade = ColorRect.new()
+	_fade.color = Color(0, 0, 0, 0)
+	_fade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	canvas.add_child(_fade)
+	return _fade
+
+
+func _fade_to(alpha: float, duration: float = 0.4) -> void:
+	var tween := create_tween()
+	tween.tween_property(_get_fade(), "color:a", alpha, duration)
+	await tween.finished
+
+
 func _physics_process(delta: float) -> void:
-	if is_dead:
+	if is_dead or is_executing:
 		return
-		
-	# Add the gravity
+
+	# Gravity + wall slide limit
 	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
-		
-		# Wall Slide Limit
 		if is_on_wall() and velocity.y > 0:
 			velocity.y = min(velocity.y, WALL_SLIDE_SPEED)
 
-	# MOVED: Get standard input direction early so the jump function can read it
 	var direction := Input.get_axis("move_left", "move_right")
 
-	# Handle Jump & Wall Jump
+	# Start attack
+	if ( Input.is_action_just_pressed("attack") or Input.is_action_pressed("attack") ) and not is_attacking:
+		attack()
+
+# Handle attack
+	if is_attacking:
+		if not Input.is_action_pressed("attack"):
+			is_attacking = false
+			animated_sprite.stop()
+
+		# Attack animation finished while mouse is still held
+		elif not animated_sprite.is_playing():
+			attack_index += 1
+
+			if attack_index >= attack_animations.size():
+				attack_index = 0
+
+			animated_sprite.play(attack_animations[attack_index])
+	
+	# Jump & wall jump
 	if Input.is_action_just_pressed("jump") and not is_dashing:
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
 		elif is_on_wall():
-			velocity.y = JUMP_VELOCITY
-			
-			# --- ZIG-ZAG LOGIC ---
-			# get_wall_normal().x always points AWAY from the wall.
-			# If you are holding the D-pad/key in that same direction, you want to leap across.
+			velocity.y = WALL_JUMP_VELOCITY
+
+			# get_wall_normal().x points away from the wall. Holding that
+			# direction leaps across the gap (zig-zag), so push harder.
 			if direction == sign(get_wall_normal().x):
-				# Give a 50% stronger pushback to cross the gap, and cut the steering lock in half
 				velocity.x = get_wall_normal().x * (WALL_JUMP_PUSHBACK * 1.5)
-				wall_jump_lock_left = WALL_JUMP_LOCK_TIME * 0.5 
+				wall_jump_lock_left = WALL_JUMP_LOCK_TIME * 0.5
 			else:
-				# Standard vertical climb (holding towards the wall or neutral)
 				velocity.x = get_wall_normal().x * WALL_JUMP_PUSHBACK
-				wall_jump_lock_left = WALL_JUMP_LOCK_TIME 
-			
-	# Manage Timers
+				wall_jump_lock_left = WALL_JUMP_LOCK_TIME
+
+	# Timers
 	if dash_time_left > 0:
 		dash_time_left -= delta
 	else:
 		is_dashing = false
-		
+
 	if dash_cooldown_left > 0:
 		dash_cooldown_left -= delta
-		
+
 	if wall_jump_lock_left > 0:
 		wall_jump_lock_left -= delta
-	
+
 	# Trigger dash
 	if Input.is_action_just_pressed("dash") and dash_cooldown_left <= 0:
 		is_dashing = true
 		dash_time_left = DASH_DURATION
 		dash_cooldown_left = DASH_COOLDOWN
 		dash_direction = -1.0 if animated_sprite.flip_h else 1.0
-		
-	# Apply movement and animations
-	if is_dashing:
+
+	# Movement and animations
+	if is_attacking:
+		pass
+	elif is_dashing:
 		velocity.x = dash_direction * SPEED * DASH_SPEED_MULTIPLIER
-		velocity.y = 0 
+		velocity.y = 0
 		animated_sprite.play("roll")
 	else:
-		# Standard horizontal steering (if not locked by wall jump)
+		# Horizontal steering (unless locked by a wall jump)
 		if wall_jump_lock_left <= 0:
 			if direction:
 				velocity.x = direction * SPEED
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
-				
-		# Visual Sprite Flipping
+
+		# Sprite flipping
 		if wall_jump_lock_left > 0:
 			animated_sprite.flip_h = velocity.x < 0
 		elif not is_on_wall() or is_on_floor():
@@ -112,8 +182,8 @@ func _physics_process(delta: float) -> void:
 				animated_sprite.flip_h = false
 			elif direction < 0:
 				animated_sprite.flip_h = true
-				
-		# Handle Animations
+
+		# Animations
 		if not is_on_floor():
 			if is_on_wall() and velocity.y > 0:
 				animated_sprite.play("wall_slide")
@@ -121,24 +191,59 @@ func _physics_process(delta: float) -> void:
 			else:
 				animated_sprite.play("hop")
 		elif direction != 0:
-			animated_sprite.play("run") 
+			animated_sprite.play("run")
 		else:
 			animated_sprite.play("idle_bop")
 
 	move_and_slide()
 
+
+func die() -> void:
+	if is_dead:
+		return
+
+	is_dead = true
+	Global.lives -= 1
+	velocity = Vector2.ZERO
+	print("Lives remaining: ", Global.lives)
+	
+	_shake_camera() # NEW: Trigger the shake right as the player dies
+
+	if Global.lives > 0:
+		animated_sprite.play("death")
+		await animated_sprite.animation_finished
+		await _fade_to(1.0)
+		await respawn()
+	else:
+		animated_sprite.play("death_final")
+		await animated_sprite.animation_finished
+		await _fade_to(1.0)
+		game_over()
+
+# --- NEW FUNCTION ---
+func _shake_camera() -> void:
+	var camera = $Camera2D
+	if camera == null:
+		return
+		
+	var shake_tween = create_tween()
+	# Loop 10 times at 0.1 seconds each = exactly 1 second of shaking
+	for i in range(10): 
+		var rand_offset = Vector2(randf_range(-6.0, 6.0), randf_range(-6.0, 6.0))
+		shake_tween.tween_property(camera, "offset", rand_offset, 0.05)
+		shake_tween.tween_property(camera, "offset", Vector2.ZERO, 0.05)
+
+
 func respawn() -> void:
 	global_position = Global.checkpoint_position
 	velocity = Vector2.ZERO
 	animated_sprite.play("idle_bop")
-	
+
 	await get_tree().create_timer(0.15).timeout
-	
-	var tween := create_tween()
-	tween.tween_property(fade, "color:a", 0.0, 0.4)
-	await tween.finished
-	
+	await _fade_to(0.0)
+
 	is_dead = false
+
 
 func game_over() -> void:
 	print("GAME OVER")
@@ -146,33 +251,30 @@ func game_over() -> void:
 	Global.has_checkpoint = false
 	get_tree().reload_current_scene()
 
-func die() -> void:
-	if is_dead:
+func attack() -> void:
+	if is_attacking or is_dashing or is_dead:
 		return
-	
-	is_dead = true
-	Global.lives -= 1
-	
+
+	is_attacking = true
+	velocity.x = 0
+
+	animated_sprite.play(attack_animations[attack_index])
+
+
+# --- Stealth execution (called by the angel) ---
+
+func begin_execution() -> void:
+	is_executing = true
 	velocity = Vector2.ZERO
-	
-	print("Lives remaining: ", Global.lives)
-	
-	if Global.lives > 0:
-		animated_sprite.play("death")
-		await animated_sprite.animation_finished
-		
-		var tween := create_tween()
-		tween.tween_property(fade, "color:a", 1.0, 0.4)
-		await tween.finished
-		
-		await respawn()
-		
-	else:
-		animated_sprite.play("death_final")
-		await animated_sprite.animation_finished
-		
-		var tween := create_tween()
-		tween.tween_property(fade, "color:a", 1.0, 0.4)
-		await tween.finished
-		
-		game_over()
+	is_attacking = false
+	is_dashing = false
+	animated_sprite.hide()  # the cutscene draws him instead
+
+
+func end_execution(new_position: Vector2, face_dir: int) -> void:
+	global_position = new_position
+	velocity = Vector2.ZERO
+	animated_sprite.flip_h = face_dir < 0
+	animated_sprite.show()
+	animated_sprite.play("idle_bop")
+	is_executing = false
