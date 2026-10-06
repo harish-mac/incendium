@@ -81,7 +81,9 @@ func _physics_process(_delta: float) -> void:
 		
 		var collider = ray_cast.get_collider()
 		if collider and collider.is_in_group("player") and collider.has_method("die"):
-			collider.die()
+			# NEW: Only kill the player if they are NOT hidden in an ambush zone
+			if not collider.get("is_hidden"):
+				collider.die()
 	
 	var hit_local_pos := Vector2(0.0, hit_distance)
 	line_2d.points = [Vector2.ZERO, hit_local_pos]
@@ -138,4 +140,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if not is_active:
 		return
 	if body.is_in_group("player") and body.has_method("die"):
-		body.die()
+		# NEW: Only kill the player if they are NOT hidden in an ambush zone
+		if not body.get("is_hidden"):
+			body.die()
