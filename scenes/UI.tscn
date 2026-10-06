@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bcwg7xn2cpn72" path="res://assets/PastelUIFree.png" id="4_3wlde"]
 [ext_resource type="Texture2D" uid="uid://d24jgj08hircw" path="res://assets/goblin_scout_v5_weapons_dagger_1_silhouette.png" id="4_ua6yw"]
 [ext_resource type="Shader" uid="uid://bjs04pq0nhm8q" path="res://scenes/UI.gdshader" id="5_75u2n"]
+[ext_resource type="AudioStream" uid="uid://bx4fiiwdhb78o" path="res://assets/sounds&comics1/assets 2/sounds/ost_[cut_72sec].mp3" id="7_xpksx"]
+[ext_resource type="AudioStream" uid="uid://dkbcd44rhkxup" path="res://assets/sounds&comics1/assets 2/sounds/click.mp3" id="8_24e4x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lu4wa"]
 atlas = ExtResource("4_3wlde")
@@ -840,3 +842,9 @@ layout_mode = 2
 texture_normal = SubResource("AtlasTexture_baxxm")
 ignore_texture_size = true
 stretch_mode = 4
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=2005818148]
+stream = ExtResource("7_xpksx")
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=961577924]
+stream = ExtResource("8_24e4x")

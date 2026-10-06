@@ -24,14 +24,14 @@ var is_executing := false  # true while a stealth-kill cutscene plays
 var _fade: ColorRect
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-<<<<<<< HEAD
+
 @onready var jump_sound: AudioStreamPlayer = $JumpSound
 @onready var land_sound: AudioStreamPlayer = $LandSound
 var was_on_floor := false
 
-=======
+
 @onready var dash_sound = $DashSound # <-- Add this line
->>>>>>> origin/tanmay
+
 var is_attacking := false
 var attack_index := 0
 

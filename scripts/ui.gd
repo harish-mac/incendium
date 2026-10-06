@@ -7,16 +7,25 @@ extends CanvasLayer
 @onready var pause_menu: Control = $PauseMenu
 @onready var resume_button: BaseButton = $PauseMenu/CenterContainer/MenuPanel/MarginContainer/VBoxContainer/ResumeButton
 @onready var quit_button: BaseButton = $PauseMenu/CenterContainer/MenuPanel/MarginContainer/VBoxContainer/QuitButton
+@onready var music: AudioStreamPlayer = $Music
+@onready var click_sound: AudioStreamPlayer = $ClickSound
 
 func _ready() -> void:
+	music.play()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	fade.color.a = 0.0
 	fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pause_menu.visible = false
 
-	pause_button.pressed.connect(toggle_pause)
-	resume_button.pressed.connect(toggle_pause)
-	quit_button.pressed.connect(func(): get_tree().quit())
+	pause_button.pressed.connect(func():
+		click_sound.play()
+		toggle_pause())
+	resume_button.pressed.connect(func():
+		click_sound.play()
+		toggle_pause())
+	quit_button.pressed.connect(func():
+		click_sound.play()
+		get_tree().quit())
 
 	idle_sprite.play()
 
