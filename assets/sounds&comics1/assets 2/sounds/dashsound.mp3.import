@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://j5ugyb0er4sm"
+path="res://.godot/imported/dashsound.mp3-ea9d265fc6f2cc4cde0c33937d63c121.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds&comics1/assets 2/sounds/dashsound.mp3"
+dest_files=["res://.godot/imported/dashsound.mp3-ea9d265fc6f2cc4cde0c33937d63c121.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
