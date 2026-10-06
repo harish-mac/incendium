@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dc254gapifsgj"]
+[gd_scene format=3 uid="uid://d1sjedmpvnc0w"]
 
 [ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="1_fjgwf"]
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="2_4r6am"]
@@ -346,6 +346,7 @@ centered = false
 position = Vector2(1056, -219.00002)
 scale = Vector2(0.75, 0.75)
 script = ExtResource("8_g0xsx")
+manual_override_path = "uid://0gpbbi3hjkcu"
 
 [node name="floorKillZone" type="Area2D" parent="TileMap" unique_id=1940632899]
 script = ExtResource("7_h22l8")
@@ -381,7 +382,6 @@ position = Vector2(937, 53)
 position = Vector2(948, 190)
 
 [node name="UI" parent="." unique_id=1469340165 instance=ExtResource("11_g0xsx")]
-visible = false
 
 [connection signal="body_entered" from="TileMap/trans" to="TileMap/trans" method="_on_body_entered"]
 [connection signal="body_entered" from="TileMap/floorKillZone" to="TileMap/floorKillZone" method="_on_body_entered"]

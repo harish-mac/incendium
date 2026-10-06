@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b1rhdo57cvvnv"]
+
+[ext_resource type="VideoStream" uid="uid://d3p44md6w30ph" path="res://assets/sounds&comics1/assets 2/comic sequences/text-scene-2.ogv" id="1_8j2kq"]
+[ext_resource type="Script" uid="uid://clfkxyy6t6j5c" path="res://scripts/video_stream_player2.gd" id="2_ssidu"]
+
+[node name="Control" type="Control" unique_id=1167018830]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1831872522]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1112.0
+offset_bottom = 608.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_8j2kq")
+expand = true
+script = ExtResource("2_ssidu")

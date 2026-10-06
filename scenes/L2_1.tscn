@@ -315,7 +315,6 @@ texture = ExtResource("1_voy7h")
 17:15/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4q4n6"]
-texture = ExtResource("2_s742c")
 
 [sub_resource type="TileSet" id="TileSet_epyq8"]
 physics_layer_0/collision_layer = 1

@@ -353,6 +353,7 @@ centered = false
 [node name="trans" parent="TileMap" unique_id=1348137182 instance=ExtResource("8_afsyb")]
 position = Vector2(2457.0093, -29.246447)
 script = ExtResource("9_qkcdk")
+manual_override_path = "uid://biykmqsim5h4q"
 
 [node name="floorKillZone" type="Area2D" parent="TileMap" unique_id=2103608213]
 script = ExtResource("7_4ocbg")

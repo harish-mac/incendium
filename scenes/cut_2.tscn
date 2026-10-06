@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://biykmqsim5h4q"]
+
+[ext_resource type="Script" uid="uid://yjxv5ry3uga1" path="res://scripts/video_stream_player1.gd" id="1_68gr4"]
+[ext_resource type="VideoStream" uid="uid://dnt7yvr48mbj0" path="res://assets/sounds&comics1/assets 2/comic sequences/text-scene-1.ogv" id="1_tukb1"]
+
+[node name="Control" type="Control" unique_id=1167018830]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1831872522]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1112.0
+offset_bottom = 608.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_tukb1")
+expand = true
+script = ExtResource("1_68gr4")

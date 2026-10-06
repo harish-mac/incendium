@@ -2,16 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://75n3x5h4as0s"
-path="res://.godot/imported/game-over.png-e1d7fe594c376ec828a38e4760a81ab1.ctex"
-metadata={
-"vram_texture": false
-}
+uid="uid://dghul4x7nx6uk"
+valid=false
 
 [deps]
 
-source_file="res://assets/sounds&comics1/assets 2/game-over.png"
-dest_files=["res://.godot/imported/game-over.png-e1d7fe594c376ec828a38e4760a81ab1.ctex"]
+source_file="res://assets/sounds&comics1/__MACOSX/assets 2/._incendium-title-1.png"
 
 [params]
 
