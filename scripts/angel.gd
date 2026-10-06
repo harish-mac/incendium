@@ -24,12 +24,12 @@ const PROMPT_FONT_PATH: String = "res://assets/pixel_operator/PixelOperator8.ttf
 
 @export_group("Detection")
 ## Seconds of seeing the player (added up) before she turns red.
-@export var detect_time: float = 1
+@export var detect_time: float = 0.7
 
 ## Seconds she stays RED (warning) before the fireball actually launches.
-@export var alert_windup: float = 0.7
+@export var alert_windup: float = 0.3
 ## How fast suspicion drains when she can't see the player (1.0 = same speed it builds).
-@export var suspicion_decay: float = 0.4
+@export var suspicion_decay: float = 0.5
 @export var calm_color: Color = Color(1.0, 1.0, 1.0, 0.35)        # white  = no suspicion
 @export var suspicious_color: Color = Color(1.0, 0.55, 0.1, 0.45) # orange = investigating
 @export var alert_color: Color = Color(1.0, 0.1, 0.1, 0.5)        # red    = fireball launched

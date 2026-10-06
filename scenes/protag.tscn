@@ -1245,6 +1245,8 @@ animations = [{
 }]
 
 [node name="Protag" type="CharacterBody2D" unique_id=246469202 groups=["player"]]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_j406x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=634486738]
