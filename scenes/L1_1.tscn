@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="3_l1op4"]
 [ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="4_3qcp1"]
 [ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="5_32opr"]
+[ext_resource type="Texture2D" uid="uid://qvma5b48q1ib" path="res://assets/UniversalUpscaler_Pro_Creative_2_1f1c133c-5127-64d0-9bfb-e9dfd67204b8.jpg" id="6_32opr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1op4"]
 texture = ExtResource("1_edvd8")
@@ -405,6 +406,17 @@ shape = SubResource("RectangleShape2D_fpahb")
 [node name="trans" parent="TileMap2" unique_id=1348137182 instance=ExtResource("4_3qcp1")]
 position = Vector2(1078, 169)
 script = ExtResource("5_32opr")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="TileMap2" unique_id=886853012]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="TileMap2/ParallaxBackground" unique_id=1363465277]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="TileMap2/ParallaxBackground/ParallaxLayer" unique_id=999531460]
+position = Vector2(-420, -627)
+scale = Vector2(0.7433036, 0.6438802)
+texture = ExtResource("6_32opr")
+centered = false
 
 [node name="Protag" parent="." unique_id=246469202 instance=ExtResource("2_6x3se")]
 position = Vector2(0, -2)

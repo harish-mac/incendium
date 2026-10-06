@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ba7yj4mo0n5bi"]
 
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="1_edvd8"]
+[ext_resource type="Texture2D" uid="uid://qvma5b48q1ib" path="res://assets/UniversalUpscaler_Pro_Creative_2_1f1c133c-5127-64d0-9bfb-e9dfd67204b8.jpg" id="1_qkcdk"]
 [ext_resource type="PackedScene" uid="uid://cxdulcap0vg37" path="res://scenes/protag.tscn" id="2_6x3se"]
 [ext_resource type="Texture2D" uid="uid://caeaaxlc4v11k" path="res://assets/Demo/Asset 220.png" id="2_l1op4"]
 [ext_resource type="PackedScene" uid="uid://cs8l61jrq8s8k" path="res://scenes/platform.tscn" id="3_wt7ke"]
@@ -478,6 +479,17 @@ size = Vector2(63, 30)
 size = Vector2(47, 12)
 
 [node name="Node2D" type="Node2D" unique_id=1886273195]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1361539873]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=315708704]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=2041944059]
+position = Vector2(-1449, -594)
+scale = Vector2(1.2522322, 1.093099)
+texture = ExtResource("1_qkcdk")
+centered = false
 
 [node name="TileMap2" type="TileMap" parent="." unique_id=966500]
 position = Vector2(-961, 782)
