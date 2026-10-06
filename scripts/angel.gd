@@ -67,13 +67,13 @@ const PROMPT_FONT_PATH: String = "res://assets/pixel_operator/PixelOperator8.ttf
 ## Leave ON if the angel in your cutscene faces RIGHT (the cutscene is mirrored when she faces left).
 @export var kill_scene_angel_faces_right: bool = true
 ## The prompt appears when the player is this many blocks away or closer...
-@export var execute_range_blocks: float = 3.0
+@export var execute_range_blocks: float = 6.0
 ## ...where one block = this many pixels (your TileSet's tile size).
 @export var block_size: float = 16.0
 ## Input action that triggers the execution (created automatically on the F key if missing).
 @export var execute_action: StringName = &"execute"
 @export var require_player_on_floor: bool = true
-@export var prompt_offset: Vector2 = Vector2(0, -80)
+@export var prompt_offset: Vector2 = Vector2(0, 80)
 @export var prompt_font_size: int = 8
 
 # NOTE: these names must match your Scene tree exactly
@@ -418,7 +418,7 @@ func _build_prompt() -> void:
 	_prompt.position = prompt_offset - Vector2(60.0, 0.0)
 	_prompt.add_theme_font_size_override("font_size", prompt_font_size)
 	_prompt.add_theme_color_override("font_color", Color.WHITE)
-	_prompt.add_theme_color_override("font_outline_color", Color.BLACK)
+	_prompt.add_theme_color_override("font_color", Color.RED)
 	_prompt.add_theme_constant_override("outline_size", 3)
 	if ResourceLoader.exists(PROMPT_FONT_PATH):
 		_prompt.add_theme_font_override("font", load(PROMPT_FONT_PATH))
