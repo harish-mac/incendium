@@ -24,7 +24,7 @@ const PROMPT_FONT_PATH: String = "res://assets/pixel_operator/PixelOperator8.ttf
 
 @export_group("Detection")
 ## Seconds of seeing the player (added up) before she turns red.
-@export var detect_time: float = 0.7
+@export var detect_time: float = 1.0
 
 ## Seconds she stays RED (warning) before the fireball actually launches.
 @export var alert_windup: float = 0.3
