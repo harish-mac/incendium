@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cd4wfx5i4q44l"]
 
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="1_edvd8"]
-[ext_resource type="PackedScene" uid="uid://cxdulcap0vg37" path="res://scenes/protag.tscn" id="2_6x3se"]
+[ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="2_6x3se"]
 [ext_resource type="Texture2D" uid="uid://caeaaxlc4v11k" path="res://assets/Demo/Asset 220.png" id="2_l1op4"]
 [ext_resource type="Script" uid="uid://cedq5naos15ap" path="res://scripts/killzone.gd" id="3_ejp5c"]
 [ext_resource type="Script" uid="uid://d00hd5htlqsfs" path="res://scripts/saw6.gd" id="4_3l5yl"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="11_wu83y"]
 [ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="12_cb617"]
 [ext_resource type="Texture2D" uid="uid://qvma5b48q1ib" path="res://assets/UniversalUpscaler_Pro_Creative_2_1f1c133c-5127-64d0-9bfb-e9dfd67204b8.jpg" id="13_cb617"]
+[ext_resource type="PackedScene" uid="uid://b4sir3d645vbs" path="res://scenes/UI.tscn" id="15_w1g1h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1op4"]
 texture = ExtResource("1_edvd8")
@@ -670,6 +671,8 @@ position = Vector2(-961, 782)
 [node name="Camera2D" type="Camera2D" parent="Protag" unique_id=1836379864]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[node name="UI" parent="." unique_id=1469340165 instance=ExtResource("15_w1g1h")]
 
 [connection signal="body_entered" from="TileMap/floorKillZone" to="TileMap/floorKillZone" method="_on_body_entered"]
 [connection signal="body_entered" from="TileMap/trans" to="TileMap/trans" method="_on_body_entered"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b5f30dciil7gw"]
 
 [ext_resource type="Texture2D" uid="uid://d4crr2v6wmdds" path="res://assets/Celestial-Ruins/Tile-Map-All/Tile-Map.png" id="1_edvd8"]
-[ext_resource type="PackedScene" uid="uid://cxdulcap0vg37" path="res://scenes/protag.tscn" id="2_6x3se"]
+[ext_resource type="PackedScene" uid="uid://255apixficp6" path="res://scenes/protag.tscn" id="2_6x3se"]
 [ext_resource type="Texture2D" uid="uid://caeaaxlc4v11k" path="res://assets/Demo/Asset 220.png" id="2_l1op4"]
 [ext_resource type="PackedScene" uid="uid://by40qboon7elj" path="res://scenes/saw.tscn" id="4_evrx2"]
 [ext_resource type="PackedScene" uid="uid://m4iudad1kjpx" path="res://scenes/jump_pad.tscn" id="4_m7wmh"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dl08pc1tqddan" path="res://scenes/transition.tscn" id="7_kko6u"]
 [ext_resource type="Script" uid="uid://7djog3miqu0" path="res://scripts/transition.gd" id="8_wskn7"]
 [ext_resource type="Texture2D" uid="uid://qvma5b48q1ib" path="res://assets/UniversalUpscaler_Pro_Creative_2_1f1c133c-5127-64d0-9bfb-e9dfd67204b8.jpg" id="9_wskn7"]
+[ext_resource type="PackedScene" uid="uid://b4sir3d645vbs" path="res://scenes/UI.tscn" id="11_wieff"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1op4"]
 texture = ExtResource("1_edvd8")
@@ -487,6 +488,8 @@ position = Vector2(0, -2)
 [node name="Camera2D" type="Camera2D" parent="Protag" unique_id=1827472738]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[node name="UI" parent="." unique_id=1469340165 instance=ExtResource("11_wieff")]
 
 [connection signal="body_entered" from="TileMap2/floorKillZone" to="TileMap2/floorKillZone" method="_on_body_entered"]
 [connection signal="body_entered" from="TileMap2/trans" to="TileMap2/trans" method="_on_body_entered"]
